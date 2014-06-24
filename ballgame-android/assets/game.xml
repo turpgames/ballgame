@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game
+    id="BallGame"
+    class="com.turpgames.ballgame.view.BallGame" >
+
+    <params>
+
+        <param
+            key="debug"
+            value="true" />
+
+        <param
+            key="server"
+            value="local" />
+
+        <param
+            key="enable-ads"
+            value="true" />
+
+        <param
+            key="provider"
+            value="com.turpgames.framework.v0.impl.libgdx.GdxGameProvider" />
+
+        <param
+            key="settings-key"
+            value="com.turpgames.ballgame" />
+
+        <param
+            key="virtual-width"
+            value="500" />
+
+        <param
+            key="virtual-height"
+            value="800" />
+
+        <param
+            key="default-font"
+            value="Akachen,1" />
+
+        <param
+            key="disable-vibration"
+            value="true" />
+
+        <param
+            key="default-screen"
+            value="splash" />
+
+        <param
+            key="default-skin"
+            value="ballgame" />
+
+        <param
+            key="screen-switcher"
+            value="fading,0.30" />
+
+        <param
+            key="form-switcher"
+            value="fading,0.30" />
+
+        <param
+            key="allow-exit-on-back"
+            value="true" />
+
+        <param
+            key="fb-share-title"
+            value="Ball Game" />
+
+        <param
+            key="fb-share-subtitle"
+            value="Turp Games" />
+
+        <param
+            key="fb-share-href"
+            value="http://www.turpgames.com/ballgameredirect.html" />
+
+        <param
+            key="fb-share-imgurl"
+            value="http://www.turpgames.com/img/ballgame.png" />
+
+        <param
+            key="fb-share-appinfo"
+            value="Play fun games with Turp Games!" />
+
+        <param
+            key="prod-server"
+            value="http://ballgame.turpgam.es/" />
+
+        <param
+            key="test-server"
+            value="http://ballgametest.turpgam.es/" />
+
+        <param
+            key="local-server"
+            value="http://192.168.2.4:8080/turp-server/" />
+
+        <param
+            key="send-score-params"
+            value="?a=h&amp;p=%d&amp;m=%d&amp;s=%d&amp;n=%d" />
+
+        <param
+            key="get-leadersboard-params"
+            value="?a=l&amp;p=%d&amp;m=%d&amp;d=%d&amp;w=%d" />
+
+        <param
+            key="register-player-params"
+            value="?a=r&amp;f=%s&amp;e=%s&amp;u=%s" />
+
+        <param
+            key="turp-address"
+            value="http://www.turpgames.com" />
+
+        <param
+            key="play-store-address"
+            value="market://details?id=com.turpgames.ballgame" />
+
+        <param
+            key="app-store-address-ios7"
+            value="itms-apps://itunes.apple.com/app/id????" />
+
+        <param
+            key="app-store-address-old"
+            value="itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&amp;id=???" />
+
+        <param
+            key="twitter-address"
+            value="http://www.twitter.com/turpgames" />
+
+        <param
+            key="facebook-address"
+            value="http://www.facebook.com/turpgames" />
+
+        <param
+            key="admob-interstitial-ad-unit-id"
+            value="ca-app-pub-9430411208134016/2056747076" />
+    </params>
+
+    <screens>
+
+        <screen
+            id="splash"
+            class="com.turpgames.ballgame.view.SplashScreen" />
+
+        <screen
+            id="game"
+            class="com.turpgames.ballgame.view.GameScreen" />
+
+        <screen
+            id="leadersboard"
+            class="com.turpgames.ballgame.view.LeadersBoardScreen" />
+
+        <screen
+            id="about"
+            class="com.turpgames.ballgame.view.AboutScreen" />
+    </screens>
+
+    <animations>
+
+        <animation
+            id="loading"
+            frame-duration="0.040"
+            frame-height="74"
+            frame-width="74"
+            loop="true"
+            texture="loading" />
+    </animations>
+
+    <resources>
+
+        <fonts>
+
+            <font
+                id="Akachen"
+                path="fonts/akachen_1024.fnt" />
+        </fonts>
+
+        <textures>
+
+            <texture
+                id="turp_logo"
+                path="img/turpgames_logo.png"
+                resource-load="primary" />
+
+            <texture
+                id="loading"
+                path="img/loading.png" />
+
+            <texture
+                id="fw_close"
+                path="img/framework/close.png" />
+
+            <texture
+                id="tb_back"
+                path="img/toolbar/back.png" />
+
+            <texture
+                id="tb_sound_off"
+                path="img/toolbar/sound-off.png" />
+
+            <texture
+                id="tb_sound_on"
+                path="img/toolbar/sound-on.png" />
+
+            <texture
+                id="ball_blue"
+                path="img/ball_blue.png" />
+
+            <texture
+                id="bg"
+                path="img/bg.png" />
+
+            <texture
+                id="tap_right"
+                path="img/tap_right.png" />
+
+            <texture
+                id="tap_left"
+                path="img/tap_left.png" />
+
+            <texture
+                id="tap_bottom"
+                path="img/tap_bottom.png" />
+
+            <texture
+                id="icon"
+                height="320"
+                region-of="main"
+                width="320"
+                x="2"
+                y="114" />
+
+            <texture
+                id="logo"
+                height="110"
+                region-of="main"
+                width="500"
+                x="2"
+                y="2" />
+        </textures>
+
+        <sounds>
+
+            <sound
+                id="hit"
+                path="audio/hit.mp3" />
+
+            <sound
+                id="gameover"
+                path="audio/gameover.mp3" />
+
+            <sound
+                id="1"
+                path="audio/1.mp3" />
+
+            <sound
+                id="2"
+                path="audio/2.mp3" />
+
+            <sound
+                id="4"
+                path="audio/4.mp3" />
+
+            <sound
+                id="8"
+                path="audio/8.mp3" />
+
+            <sound
+                id="16"
+                path="audio/16.mp3" />
+
+            <sound
+                id="32"
+                path="audio/32.mp3" />
+
+            <sound
+                id="64"
+                path="audio/64.mp3" />
+
+            <sound
+                id="128"
+                path="audio/128.mp3" />
+
+            <sound
+                id="256"
+                path="audio/256.mp3" />
+
+            <sound
+                id="512"
+                path="audio/512.mp3" />
+
+            <sound
+                id="1024"
+                path="audio/1024.mp3" />
+
+            <sound
+                id="2048"
+                path="audio/2048.mp3" />
+
+            <sound
+                id="nomove"
+                path="audio/nomove.mp3" />
+
+            <sound
+                id="noscore"
+                path="audio/noscore.mp3" />
+
+            <sound
+                id="gameover"
+                path="audio/gameover.mp3" />
+        </sounds>
+
+        <musics>
+        </musics>
+    </resources>
+
+    <languages>
+
+        <language
+            id="en-US"
+            encoding="UTF8"
+            flag-texture-id="flag_en_us"
+            path="lang/Strings_en_US.properties" />
+    </languages>
+
+    <skins>
+
+        <skin id="ballgame" >
+
+            <form
+                cols="16"
+                rows="32" />
+
+            <button
+                cols="8"
+                default-color="#ffffffff"
+                focus-color="#f9b000ff"
+                font-scale="1.2"
+                halign="center"
+                rows="2"
+                sound-click="8"
+                vibrate="0"
+                x="4" />
+
+            <label
+                halign="center"
+                rows="2"
+                color="#fff" />
+        </skin>
+    </skins>
+
+</game>
