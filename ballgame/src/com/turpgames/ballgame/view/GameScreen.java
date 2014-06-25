@@ -8,39 +8,36 @@ import com.turpgames.framework.v0.util.Game;
 
 public class GameScreen extends Screen implements IScreenView {
 
-    private GameController controller;
-    private boolean isFirstActivate;
+	private GameController controller;
+	private boolean isFirstActivate;
 
-    public GameScreen() {
-        isFirstActivate = true;
-    }
+	public void init() {
+		super.init();
+		isFirstActivate = true;
+		controller = new GameController(this);
+		registerDrawable(new BallGameLogo(), 100);
+	}
 
-    public void init() {
-        super.init();
-        controller = new GameController(this);
-        registerDrawable(new BallGameLogo(), 100);
-    }
+	protected void onAfterActivate() {
+		if (isFirstActivate) {
+			isFirstActivate = false;
+			TurpClient.init();
+		}
+		controller.activate();
+	}
 
-    protected void onAfterActivate() {
-        if (isFirstActivate) {
-            isFirstActivate = false;
-            TurpClient.init();
-        }
-        controller.activate();
-    }
+	protected boolean onBack() {
+		Game.exit();
+		return false;
+	}
 
-    protected boolean onBack() {
-        Game.exit();
-        return false;
-    }
+	protected boolean onBeforeDeactivate() {
+		controller.deactivate();
+		return super.onBeforeDeactivate();
+	}
 
-    protected boolean onBeforeDeactivate() {
-        controller.deactivate();
-        return super.onBeforeDeactivate();
-    }
-
-    public void update() {
-        super.update();
-        controller.update();
-    }
+	public void update() {
+		super.update();
+		controller.update();
+	}
 }

@@ -9,17 +9,7 @@ import com.turpgames.framework.v0.util.Rectangle;
 import com.turpgames.framework.v0.util.ShapeDrawer;
 import com.turpgames.framework.v0.util.TextureDrawer;
 
-public class Walls implements IDrawable
-{
-	private static class WallsObject extends GameObject
-	{
-		public void draw()
-		{
-			TextureDrawer.draw(Textures.bg, this);
-			ShapeDrawer.drawRect(this, false);
-		}
-	}
-
+public class Walls implements IDrawable {
 	private static final float w = Game.getVirtualWidth() - 10F;
 	private static final float h = Game.getVirtualHeight() - 10F;
 	private static final float x = 5F;
@@ -36,13 +26,18 @@ public class Walls implements IDrawable
 		walls.getColor().set(wallColor);
 	}
 
-	public void draw()
-	{
+	public void draw() {
 		walls.draw();
 	}
 
-	public Rectangle getRect()
-	{
+	public Rectangle getRect() {
 		return rect;
+	}
+
+	private static class WallsObject extends GameObject {
+		public void draw() {
+			TextureDrawer.draw(Textures.bg, this);
+			ShapeDrawer.drawRect(this, false);
+		}
 	}
 }

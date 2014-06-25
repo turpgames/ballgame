@@ -34,7 +34,7 @@ public class GameController {
 	public GameController(IScreenView view) {
 		this.view = view;
 
-		ball = new Ball();
+		ball = Ball.pingPongBall();
 		walls = new Walls();
 
 		this.help = new HelpView();
@@ -54,7 +54,6 @@ public class GameController {
 		this.infoText.setText("Touch To Begin");
 
 		this.resultView = new ResultView(new ResultView.IListener() {
-
 			@Override
 			public void onShowLeadersBoard() {
 				System.out.println("Leaders Board");
@@ -123,8 +122,7 @@ public class GameController {
 	private boolean onTouchDown(float x, float y) {
 		if (gameOver) {
 			return false;
-		}
-		else if (!isPlaying) {
+		} else if (!isPlaying) {
 			beginPlaying();
 		} else {
 			score++;

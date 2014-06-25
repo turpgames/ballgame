@@ -8,49 +8,42 @@ import com.turpgames.framework.v0.util.Game;
 import com.turpgames.framework.v0.util.TextureDrawer;
 
 public class HelpView implements IDrawable {
-    class HelpItem extends GameObject
-    {
-        private final ITexture texture;
+	private static final float itemSize = 150F;
+	private final HelpItem tapBottom;
+	private final HelpItem tapLeft;
+	private final HelpItem tapRight;
 
-        public void draw()
-        {
-            TextureDrawer.draw(texture, this);
-        }
+	public HelpView() {
+		tapRight = new HelpItem(Textures.tap_right);
+		tapBottom = new HelpItem(Textures.tap_bottom);
+		tapLeft = new HelpItem(Textures.tap_left);
+		float f = (Game.getVirtualWidth() - 3 * itemSize) / 4F;
+		tapRight.setLocation(f, itemSize);
+		tapBottom.setLocation(itemSize + 2.0F * f, itemSize);
+		tapLeft.setLocation(2 * itemSize + 3F * f, itemSize);
+	}
 
-        public void setLocation(float f, float f1)
-        {
-            getLocation().set(f, f1);
-        }
+	public void draw() {
+		tapRight.draw();
+		tapBottom.draw();
+		tapLeft.draw();
+	}
 
-        HelpItem(ITexture itexture)
-        {
-            texture = itexture;
-            setWidth(150F);
-            setHeight(150F);
-        }
-    }
+	class HelpItem extends GameObject {
+		private final ITexture texture;
 
+		public void draw() {
+			TextureDrawer.draw(texture, this);
+		}
 
-    private static final float itemSize = 150F;
-    private final HelpItem tapBottom;
-    private final HelpItem tapLeft;
-    private final HelpItem tapRight;
+		public void setLocation(float f, float f1) {
+			getLocation().set(f, f1);
+		}
 
-    public HelpView()
-    {
-        tapRight = new HelpItem(Textures.tap_right);
-        tapBottom = new HelpItem(Textures.tap_bottom);
-        tapLeft = new HelpItem(Textures.tap_left);
-        float f = (Game.getVirtualWidth() - 3 * itemSize) / 4F;
-        tapRight.setLocation(f, itemSize);
-        tapBottom.setLocation(itemSize + 2.0F * f, itemSize);
-        tapLeft.setLocation(2 * itemSize + 3F * f, itemSize);
-    }
-
-    public void draw()
-    {
-        tapRight.draw();
-        tapBottom.draw();
-        tapLeft.draw();
-    }
+		HelpItem(ITexture itexture) {
+			texture = itexture;
+			setWidth(150F);
+			setHeight(150F);
+		}
+	}
 }

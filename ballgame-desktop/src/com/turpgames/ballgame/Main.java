@@ -1,4 +1,4 @@
-package src.com.turpgames.ballgame;
+package com.turpgames.ballgame;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
