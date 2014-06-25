@@ -11,31 +11,22 @@ public class ResultView implements IDrawable {
 		public abstract void onRestartGame();
 
 		public abstract void onShareScore();
-
-		public abstract void onShowLeadersBoard();
 	}
 	
-	private final TextButton leadersBoardButton;
 	private final TextButton restartButton;
 	private final TextButton shareScoreButton;
 
 	public ResultView(final IListener listener) {
 		float y = Game.getVirtualHeight() / 2.0F;
-		shareScoreButton = createButton("Share Score", y, new IButtonListener() {
+		shareScoreButton = createButton("Share Score", y + 60f, new IButtonListener() {
 			public void onButtonTapped() {
 				listener.onShareScore();
 			}
 		});
 
-		restartButton = createButton("Play Again", y - 120F, new IButtonListener() {
+		restartButton = createButton("Play Again", y - 60f, new IButtonListener() {
 			public void onButtonTapped() {
 				listener.onRestartGame();
-			}
-		});
-
-		leadersBoardButton = createButton("Leaders Board", y + 120F, new IButtonListener() {
-			public void onButtonTapped() {
-				listener.onShowLeadersBoard();
 			}
 		});
 	}
@@ -52,18 +43,15 @@ public class ResultView implements IDrawable {
 	public void activate() {
 		restartButton.activate();
 		shareScoreButton.activate();
-		leadersBoardButton.activate();
 	}
 
 	public void deactivate() {
 		restartButton.deactivate();
 		shareScoreButton.deactivate();
-		leadersBoardButton.deactivate();
 	}
 
 	public void draw() {
 		restartButton.draw();
 		shareScoreButton.draw();
-		leadersBoardButton.draw();
 	}
 }

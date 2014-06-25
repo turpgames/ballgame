@@ -2,32 +2,29 @@ package com.turpgames.ballgame.view;
 
 import com.turpgames.ballgame.components.BallGameLogo;
 import com.turpgames.ballgame.controller.GameController;
+import com.turpgames.ballgame.utils.R;
+import com.turpgames.ballgame.utils.StatActions;
 import com.turpgames.framework.v0.client.TurpClient;
 import com.turpgames.framework.v0.impl.Screen;
-import com.turpgames.framework.v0.util.Game;
+import com.turpgames.framework.v0.impl.ScreenManager;
 
 public class GameScreen extends Screen implements IScreenView {
 
 	private GameController controller;
-	private boolean isFirstActivate;
 
 	public void init() {
 		super.init();
-		isFirstActivate = true;
 		controller = new GameController(this);
 		registerDrawable(new BallGameLogo(), 100);
 	}
 
 	protected void onAfterActivate() {
-		if (isFirstActivate) {
-			isFirstActivate = false;
-			TurpClient.init();
-		}
 		controller.activate();
+		TurpClient.sendStat(StatActions.EnterGameScreen);
 	}
 
 	protected boolean onBack() {
-		Game.exit();
+		ScreenManager.instance.switchTo(R.screens.menu, true);
 		return false;
 	}
 

@@ -6,6 +6,7 @@ import com.turpgames.ballgame.objects.Ball;
 import com.turpgames.ballgame.objects.Walls;
 import com.turpgames.ballgame.utils.BallGameAds;
 import com.turpgames.ballgame.utils.Sounds;
+import com.turpgames.ballgame.utils.StatActions;
 import com.turpgames.ballgame.view.IScreenView;
 import com.turpgames.framework.v0.client.IShareMessageBuilder;
 import com.turpgames.framework.v0.client.TurpClient;
@@ -34,7 +35,7 @@ public class GameController {
 	public GameController(IScreenView view) {
 		this.view = view;
 
-		ball = Ball.pingPongBall();
+		ball = Ball.defaultBall();
 		walls = new Walls();
 
 		this.help = new HelpView();
@@ -54,11 +55,6 @@ public class GameController {
 		this.infoText.setText("Touch To Begin");
 
 		this.resultView = new ResultView(new ResultView.IListener() {
-			@Override
-			public void onShowLeadersBoard() {
-				System.out.println("Leaders Board");
-			}
-
 			@Override
 			public void onShareScore() {
 				TurpClient.shareScoreOnFacebook(new IShareMessageBuilder() {
@@ -83,6 +79,7 @@ public class GameController {
 		scoreText.setText(score + "");
 		view.unregisterDrawable(infoText);
 		view.unregisterDrawable(help);
+		TurpClient.sendStat(StatActions.StartPlaying);
 	}
 
 	private void endGame() {
@@ -93,6 +90,8 @@ public class GameController {
 		view.unregisterInputListener(listener);
 		view.registerDrawable(resultView, Game.LAYER_INFO);
 		Sounds.gameover.play();
+		TurpClient.sendScore(score, 1, null);
+		TurpClient.sendStat(StatActions.GameOver);
 	}
 
 	private void restartGame() {
@@ -148,6 +147,7 @@ public class GameController {
 	}
 
 	public void deactivate() {
+		ball.stopMoving();
 		view.unregisterInputListener(listener);
 		view.unregisterDrawable(ball);
 		view.unregisterDrawable(walls);

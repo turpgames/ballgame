@@ -16,11 +16,12 @@ public class HelpView implements IDrawable {
 	public HelpView() {
 		tapRight = new HelpItem(Textures.tap_right);
 		tapBottom = new HelpItem(Textures.tap_bottom);
-		tapLeft = new HelpItem(Textures.tap_left);
+		tapLeft = new HelpItem(Textures.tap_right);
 		float f = (Game.getVirtualWidth() - 3 * itemSize) / 4F;
 		tapRight.setLocation(f, itemSize);
 		tapBottom.setLocation(itemSize + 2.0F * f, itemSize);
 		tapLeft.setLocation(2 * itemSize + 3F * f, itemSize);
+		tapLeft.isFlipX = true;
 	}
 
 	public void draw() {
@@ -31,6 +32,7 @@ public class HelpView implements IDrawable {
 
 	class HelpItem extends GameObject {
 		private final ITexture texture;
+		private boolean isFlipX;
 
 		public void draw() {
 			TextureDrawer.draw(texture, this);
@@ -42,8 +44,13 @@ public class HelpView implements IDrawable {
 
 		HelpItem(ITexture itexture) {
 			texture = itexture;
-			setWidth(150F);
-			setHeight(150F);
+			setWidth(itemSize);
+			setHeight(itemSize);
+		}
+		
+		@Override
+		public boolean isFlipX() {
+			return isFlipX;
 		}
 	}
 }

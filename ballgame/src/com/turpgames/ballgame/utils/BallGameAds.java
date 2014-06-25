@@ -1,6 +1,7 @@
 package com.turpgames.ballgame.utils;
 
 import com.turpgames.framework.v0.client.ConnectionManager;
+import com.turpgames.framework.v0.client.TurpClient;
 import com.turpgames.framework.v0.util.Debug;
 import com.turpgames.framework.v0.util.Game;
 
@@ -18,6 +19,7 @@ public class BallGameAds {
 				lastShown = now;
 				Debug.println("calling Game.showPopUpAd");
 				Game.showPopUpAd();
+				TurpClient.sendStat(StatActions.AdShown);
 				return;
 			}
 		}

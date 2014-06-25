@@ -1,11 +1,9 @@
-// Decompiled by Jad v1.5.8e. Copyright 2001 Pavel Kouznetsov.
-// Jad home page: http://www.geocities.com/kpdus/jad.html
-// Decompiler options: braces fieldsfirst space lnc 
-
 package com.turpgames.ballgame.view;
 
 import com.turpgames.ballgame.components.BallGameLogo;
 import com.turpgames.ballgame.utils.R;
+import com.turpgames.ballgame.utils.StatActions;
+import com.turpgames.framework.v0.client.TurpClient;
 import com.turpgames.framework.v0.component.IButtonListener;
 import com.turpgames.framework.v0.component.TextButton;
 import com.turpgames.framework.v0.impl.Screen;
@@ -32,18 +30,23 @@ public class AboutScreen extends Screen {
 	}
 
 	private void initFacebookButton() {
-		facebookButton = createButton("turpgames@facebook", Game.getParam("facebook-address"), 500F);
+		facebookButton = createButton("turpgames@facebook", Game.getParam("facebook-address"), StatActions.ClickedFacebookInAbout, 500F);
 		registerDrawable(facebookButton, 100);
 	}
 
-	private void initStoreButton() {
-		storeButton = createButton("Did you like Ball Game?", getStoreUrl(), 200F);
-		registerDrawable(storeButton, 100);
+	private void initTwitterButton() {
+		twitterButton = createButton("turpgames@twitter", Game.getParam("twitter-address"), StatActions.ClickedTwitterInAbout, 400F);
+		registerDrawable(twitterButton, 100);
 	}
 
-	private void initTwitterButton() {
-		twitterButton = createButton("turpgames@twitter", Game.getParam("twitter-address"), 400F);
-		registerDrawable(twitterButton, 100);
+	private void initWebSiteButton() {
+		webSiteButton = createButton("www.turpgames.com", Game.getParam("turp-address"), StatActions.ClickedWebSiteInAbout, 300F);
+		registerDrawable(webSiteButton, 100);
+	}
+
+	private void initStoreButton() {
+		storeButton = createButton("Did you like Ball Game?", getStoreUrl(), StatActions.ClickedDidYouLikeInAbout, 200F);
+		registerDrawable(storeButton, 100);
 	}
 
 	private void initVersionText() {
@@ -55,12 +58,7 @@ public class AboutScreen extends Screen {
 		registerDrawable(text, 100);
 	}
 
-	private void initWebSiteButton() {
-		webSiteButton = createButton("www.turpgames.com", Game.getParam("turp-address"), 300F);
-		registerDrawable(webSiteButton, 100);
-	}
-
-	private static TextButton createButton(String text, final String url, float y) {
+	private static TextButton createButton(String text, final String url, final int statAction, float y) {
 		TextButton textbutton = new TextButton(Color.white(), Color.green());
 		textbutton.setText(text);
 		textbutton.setFontScale(0.8F);
@@ -68,6 +66,7 @@ public class AboutScreen extends Screen {
 		textbutton.setListener(new IButtonListener() {
 			public void onButtonTapped() {
 				Game.openUrl(url);
+				TurpClient.sendStat(statAction);
 			}
 		});
 		return textbutton;
@@ -90,6 +89,7 @@ public class AboutScreen extends Screen {
 		twitterButton.activate();
 		webSiteButton.activate();
 		storeButton.activate();
+		TurpClient.sendStat(StatActions.EnterAboutScreen);
 	}
 
 	protected boolean onBack() {

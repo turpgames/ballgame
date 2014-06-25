@@ -2,6 +2,8 @@ package com.turpgames.ballgame.view;
 
 import com.turpgames.ballgame.components.BallGameLogo;
 import com.turpgames.ballgame.utils.R;
+import com.turpgames.ballgame.utils.StatActions;
+import com.turpgames.framework.v0.client.TurpClient;
 import com.turpgames.framework.v0.impl.Screen;
 import com.turpgames.framework.v0.impl.ScreenManager;
 import com.turpgames.framework.v0.impl.Text;
@@ -14,6 +16,12 @@ public class LeadersBoardScreen extends Screen {
 		text.setText("Leaders Board Here");
 		registerDrawable(new BallGameLogo(), 100);
 		registerDrawable(text, 100);
+	}
+	
+	@Override
+	protected void onAfterActivate() {
+		super.onAfterActivate();
+		TurpClient.sendStat(StatActions.EnterLeadersBoard);
 	}
 
 	protected boolean onBack() {

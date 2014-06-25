@@ -51,11 +51,11 @@
 
         <param
             key="screen-switcher"
-            value="fading,0.30" />
+            value="sliding,0.30" />
 
         <param
             key="form-switcher"
-            value="fading,0.30" />
+            value="sliding,0.30" />
 
         <param
             key="allow-exit-on-back"
@@ -141,17 +141,49 @@
             class="com.turpgames.ballgame.view.SplashScreen" />
 
         <screen
+            id="menu"
+            background-texture="bg"
+            class="com.turpgames.ballgame.view.MenuScreen" />
+
+        <screen
             id="game"
+            background-texture="bg"
             class="com.turpgames.ballgame.view.GameScreen" />
 
         <screen
             id="leadersboard"
+            background-texture="bg"
             class="com.turpgames.ballgame.view.LeadersBoardScreen" />
 
         <screen
             id="about"
+            background-texture="bg"
             class="com.turpgames.ballgame.view.AboutScreen" />
     </screens>
+
+    <forms>
+
+        <form id="mainMenu" >
+
+            <button
+                id="btnPlay"
+                action="screen=game"
+                text="Play"
+                y="20" />
+
+            <button
+                id="btnAbout"
+                action="screen=about"
+                resource-text="About"
+                y="16" />
+
+            <button
+                id="btnLeadersBoard"
+                action="screen=leadersboard"
+                resource-text="Leaders Board"
+                y="12" />
+        </form>
+    </forms>
 
     <animations>
 
@@ -211,10 +243,6 @@
             <texture
                 id="tap_right"
                 path="img/tap_right.png" />
-
-            <texture
-                id="tap_left"
-                path="img/tap_left.png" />
 
             <texture
                 id="tap_bottom"
