@@ -1,6 +1,7 @@
 package com.turpgames.ballgame.view;
 
 import com.turpgames.ballgame.components.BallGameLogo;
+import com.turpgames.ballgame.components.Toolbar;
 import com.turpgames.ballgame.components.hiscore.HiScoreController;
 import com.turpgames.ballgame.utils.R;
 import com.turpgames.ballgame.utils.StatActions;
@@ -18,6 +19,7 @@ public class LeadersBoardScreen extends Screen {
 		controller = new HiScoreController();
 		registerDrawable(new BallGameLogo(), Game.LAYER_GAME);
 		registerDrawable(controller, Game.LAYER_GAME);
+		registerDrawable(Toolbar.getInstance(), Game.LAYER_INFO);
 	}
 
 	@Override
@@ -28,6 +30,14 @@ public class LeadersBoardScreen extends Screen {
 		
 		if (TurpClient.isRegistered()) {
 			controller.activate();
+			
+			Toolbar.getInstance().enable();
+			Toolbar.getInstance().setListener(new com.turpgames.framework.v0.component.Toolbar.IToolbarListener() {
+				@Override
+				public void onToolbarBack() {
+					onBack();
+				}
+			});
 		}
 		else {
 			final Dialog dialog = new Dialog();
@@ -52,6 +62,7 @@ public class LeadersBoardScreen extends Screen {
 	@Override
 	protected boolean onBeforeDeactivate() {
 		controller.deactivate();
+		Toolbar.getInstance().disable();
 		return super.onBeforeDeactivate();
 	}
 

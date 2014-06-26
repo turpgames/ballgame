@@ -1,6 +1,7 @@
 package com.turpgames.ballgame.view;
 
 import com.turpgames.ballgame.components.BallGameLogo;
+import com.turpgames.ballgame.components.Toolbar;
 import com.turpgames.ballgame.utils.R;
 import com.turpgames.ballgame.utils.StatActions;
 import com.turpgames.framework.v0.client.TurpClient;
@@ -27,6 +28,7 @@ public class AboutScreen extends Screen {
 		initWebSiteButton();
 		initStoreButton();
 		registerDrawable(new BallGameLogo(), 100);
+		registerDrawable(Toolbar.getInstance(), Game.LAYER_INFO);
 	}
 
 	private void initFacebookButton() {
@@ -90,6 +92,14 @@ public class AboutScreen extends Screen {
 		webSiteButton.activate();
 		storeButton.activate();
 		TurpClient.sendStat(StatActions.EnterAboutScreen);
+		
+		Toolbar.getInstance().enable();
+		Toolbar.getInstance().setListener(new com.turpgames.framework.v0.component.Toolbar.IToolbarListener() {
+			@Override
+			public void onToolbarBack() {
+				onBack();
+			}
+		});
 	}
 
 	protected boolean onBack() {
@@ -102,6 +112,7 @@ public class AboutScreen extends Screen {
 		twitterButton.deactivate();
 		webSiteButton.deactivate();
 		storeButton.deactivate();
+		Toolbar.getInstance().disable();
 		return super.onBeforeDeactivate();
 	}
 }
