@@ -59,7 +59,7 @@ public class AboutScreen extends Screen {
 	}
 
 	private static TextButton createButton(String text, final String url, final int statAction, float y) {
-		TextButton textbutton = new TextButton(Color.white(), Color.green());
+		TextButton textbutton = new TextButton(Color.white(), R.colors.yellow);
 		textbutton.setText(text);
 		textbutton.setFontScale(0.8F);
 		textbutton.getLocation().set((Game.getVirtualWidth() - textbutton.getWidth()) / 2.0F, y);
@@ -93,7 +93,7 @@ public class AboutScreen extends Screen {
 	}
 
 	protected boolean onBack() {
-		ScreenManager.instance.switchTo(R.screens.menu, true);
+		ScreenManager.instance.switchTo(R.screens.game, true);
 		return true;
 	}
 

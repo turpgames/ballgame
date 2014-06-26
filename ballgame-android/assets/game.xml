@@ -18,6 +18,10 @@
             value="true" />
 
         <param
+            key="enable-analytics"
+            value="false" />
+
+        <param
             key="provider"
             value="com.turpgames.framework.v0.impl.libgdx.GdxGameProvider" />
 
@@ -361,7 +365,7 @@
                 cols="8"
                 default-color="#ffffffff"
                 focus-color="#f9b000ff"
-                font-scale="1.2"
+                font-scale="1"
                 halign="center"
                 rows="2"
                 sound-click="8"

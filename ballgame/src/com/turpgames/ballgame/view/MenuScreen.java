@@ -1,5 +1,6 @@
 package com.turpgames.ballgame.view;
 
+import com.turpgames.ballgame.components.BallGameLogo;
 import com.turpgames.ballgame.utils.StatActions;
 import com.turpgames.framework.v0.client.TurpClient;
 import com.turpgames.framework.v0.impl.FormScreen;
@@ -15,6 +16,8 @@ public class MenuScreen extends FormScreen {
 		isFirstActivate = true;
 		
 		setForm("mainMenu", false);
+		
+		registerDrawable(new BallGameLogo(), Game.LAYER_GAME);
 	}
 
 	protected void onAfterActivate() {
