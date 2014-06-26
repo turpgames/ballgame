@@ -51,12 +51,12 @@ public class GameController {
 		this.scoreText = new Text();
 		this.scoreText.setFontScale(0.66f);
 		this.scoreText.setAlignment(Text.HAlignLeft, Text.VAlignTop);
-		this.scoreText.setPadding(Game.scale(10), Game.scale(10));
+		this.scoreText.setPadding(10, 10);
 
 		this.hiscoreText = new Text();
 		this.hiscoreText.setFontScale(0.66f);
 		this.hiscoreText.setAlignment(Text.HAlignRight, Text.VAlignTop);
-		this.hiscoreText.setPadding(Game.scale(10), Game.scale(10));
+		this.hiscoreText.setPadding(10, 10);
 
 		this.infoText = new Text();
 		this.infoText.setAlignment(Text.HAlignCenter, Text.VAlignCenter);
@@ -113,8 +113,9 @@ public class GameController {
 		view.registerDrawable(resultView, Game.LAYER_INFO);
 		view.registerDrawable(overlay, Game.LAYER_GAME + 1);
 		Sounds.gameover.play();
-		TurpClient.sendScore(score, BallGameMode.defaultMode, null);
 		TurpClient.sendStat(StatActions.GameOver);
+		if (score > 10)
+			TurpClient.sendScore(score, BallGameMode.defaultMode, null);
 	}
 
 	private void restartGame() {
@@ -162,25 +163,23 @@ public class GameController {
 		return true;
 	}
 
-	public void activate() {
+	public void activate(boolean restartGame) {
 		view.registerDrawable(walls, Game.LAYER_GAME);
 		view.registerDrawable(ball, Game.LAYER_GAME);
 		view.registerDrawable(scoreText, Game.LAYER_INFO);
 		view.registerDrawable(hiscoreText, Game.LAYER_INFO);
 
-		restartGame();
+		if (restartGame) {
+			restartGame();
+		}
+		else {
+			view.registerInputListener(listener);
+			resultView.activate();
+		}
 	}
 
 	public void deactivate() {
-		ball.stopMoving();
 		view.unregisterInputListener(listener);
-		view.unregisterDrawable(ball);
-		view.unregisterDrawable(walls);
-		view.unregisterDrawable(scoreText);
-		view.unregisterDrawable(hiscoreText);
-		view.unregisterDrawable(resultView);
-		view.unregisterDrawable(logo);
-		view.unregisterDrawable(overlay);
 		resultView.deactivate();
 	}
 

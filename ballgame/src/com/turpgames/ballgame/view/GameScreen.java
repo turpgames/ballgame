@@ -19,6 +19,8 @@ public class GameScreen extends Screen implements IScreenView {
 	}
 
 	protected void onAfterActivate() {
+		controller.activate(isFirstActivate);
+		
 		if (isFirstActivate) {
 			isFirstActivate = false;
 			TurpClient.init();
@@ -30,7 +32,6 @@ public class GameScreen extends Screen implements IScreenView {
 			
 			TurpClient.sendStat(StatActions.StartGame);
 		}
-		controller.activate();
 		TurpClient.sendStat(StatActions.EnterGameScreen);
 	}
 
