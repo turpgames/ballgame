@@ -2,7 +2,6 @@ package com.turpgames.ballgame.controller;
 
 import com.turpgames.ballgame.components.BallGameLogo;
 import com.turpgames.ballgame.components.HelpButton;
-import com.turpgames.ballgame.components.HelpView;
 import com.turpgames.ballgame.components.ResultView;
 import com.turpgames.ballgame.objects.Ball;
 import com.turpgames.ballgame.objects.Walls;
@@ -12,7 +11,6 @@ import com.turpgames.ballgame.utils.R;
 import com.turpgames.ballgame.utils.Sounds;
 import com.turpgames.ballgame.utils.StatActions;
 import com.turpgames.ballgame.view.IScreenView;
-import com.turpgames.framework.v0.IDrawable;
 import com.turpgames.framework.v0.client.IShareMessageBuilder;
 import com.turpgames.framework.v0.client.TurpClient;
 import com.turpgames.framework.v0.component.IButtonListener;
@@ -23,15 +21,12 @@ import com.turpgames.framework.v0.impl.Text;
 import com.turpgames.framework.v0.social.ICallback;
 import com.turpgames.framework.v0.util.Game;
 import com.turpgames.framework.v0.util.GameUtils;
-import com.turpgames.framework.v0.util.Rectangle;
-import com.turpgames.framework.v0.util.ShapeDrawer;
 
 public class GameController {
 	private final IScreenView view;
 	private final Ball ball;
 	private final Walls walls;
 
-	private final HelpView help;
 	private final Text scoreText;
 	private final Text hiscoreText;
 	private final Text infoText;
@@ -50,8 +45,6 @@ public class GameController {
 
 		ball = Ball.defaultBall();
 		walls = new Walls();
-
-		this.help = new HelpView();
 
 		this.scoreText = new Text();
 		this.scoreText.setFontScale(0.66f);
@@ -111,8 +104,6 @@ public class GameController {
 		scoreText.setText(score + "");
 		view.unregisterDrawable(logo);
 		view.unregisterDrawable(infoText);
-		view.unregisterDrawable(help);
-		view.unregisterDrawable(overlay);
 		view.unregisterDrawable(helpButton);
 		helpButton.deactivate();
 		TurpClient.sendStat(StatActions.StartPlaying);
@@ -129,7 +120,6 @@ public class GameController {
 		
 		view.unregisterInputListener(listener);
 		view.registerDrawable(resultView, Game.LAYER_INFO);
-		view.registerDrawable(overlay, Game.LAYER_GAME + 1);
 		Sounds.gameover.play();
 		TurpClient.sendStat(StatActions.GameOver);
 		if (score > 10)
@@ -142,8 +132,6 @@ public class GameController {
 		
 		view.registerDrawable(logo, Game.LAYER_INFO);
 		view.registerDrawable(infoText, Game.LAYER_INFO);
-		view.registerDrawable(help, Game.LAYER_INFO);
-		view.registerDrawable(overlay, Game.LAYER_GAME + 1);
 		BallGameAds.showAd();
 		gameOver = false;
 		isPlaying = false;
@@ -207,36 +195,10 @@ public class GameController {
 	}
 
 	public void update() {
-		if (isPlaying && hasCollision()) {
+		if (isPlaying && walls.hasCollision(ball)) {
 			ball.update();
 			endGame();
 		}
-	}
-
-	private boolean hasCollision() {
-		float x = ball.getLocation().x;
-		float y = ball.getLocation().y;
-		float s = ball.getSize();
-
-		Rectangle rect = walls.getRect();
-
-		if (x < rect.x) {
-			ball.getLocation().x = rect.x;
-			return true;
-		}
-		if (y < rect.y) {
-			ball.getLocation().y = rect.y;
-			return true;
-		}
-		if (rect.x + rect.width < x + s) {
-			ball.getLocation().x = rect.x + rect.width - s;
-			return true;
-		}
-		if (rect.y + rect.height < y + s) {
-			ball.getLocation().y = rect.y + rect.height - s;
-			return true;
-		}
-		return false;
 	}
 
 	private final InputListener listener = new InputListener() {
@@ -248,13 +210,6 @@ public class GameController {
 		@Override
 		public boolean tap(float x, float y, int count, int button) {
 			return onTap();
-		}
-	};
-
-	private final IDrawable overlay = new IDrawable() {
-		@Override
-		public void draw() {
-			ShapeDrawer.drawRect(0, 0, Game.getScreenWidth(), Game.getScreenHeight(), R.colors.overlay, true, true);
 		}
 	};
 }

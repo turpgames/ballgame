@@ -262,12 +262,20 @@
                 path="img/bg.png" />
 
             <texture
-                id="tap_right"
-                path="img/tap_right.png" />
+                id="tap"
+                path="img/tap.png" />
 
             <texture
-                id="tap_bottom"
-                path="img/tap_bottom.png" />
+                id="bump"
+                path="img/bump.png" />
+
+            <texture
+                id="swipe"
+                path="img/swipe.png" />
+
+            <texture
+                id="help"
+                path="img/help.png" />
         </textures>
 
         <sounds>

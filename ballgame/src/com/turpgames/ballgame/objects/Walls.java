@@ -31,6 +31,30 @@ public class Walls implements IDrawable {
 	public Rectangle getRect() {
 		return rect;
 	}
+	
+	public boolean hasCollision(Ball ball) {
+		float x = ball.getLocation().x;
+		float y = ball.getLocation().y;
+		float s = ball.getSize();
+
+		if (x < rect.x) {
+			ball.getLocation().x = rect.x;
+			return true;
+		}
+		if (y < rect.y) {
+			ball.getLocation().y = rect.y;
+			return true;
+		}
+		if (rect.x + rect.width < x + s) {
+			ball.getLocation().x = rect.x + rect.width - s;
+			return true;
+		}
+		if (rect.y + rect.height < y + s) {
+			ball.getLocation().y = rect.y + rect.height - s;
+			return true;
+		}
+		return false;
+	}
 
 	private static class WallsObject extends GameObject {
 		public void draw() {

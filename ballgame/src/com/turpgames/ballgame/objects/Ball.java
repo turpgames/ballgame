@@ -22,9 +22,9 @@ public class Ball implements IDrawable {
 
 	private final RollingEffect rollingEffect;
 
-	private Ball(float r, float d, float fx, float fy) {
+	private Ball(float r, float g, float fx, float fy) {
 		this.radius = r;
-		this.gravity = -d * physicsFactor;
+		this.gravity = -g * physicsFactor;
 		this.hitX = fx * physicsFactor;
 		this.hitY = fy * physicsFactor;
 
@@ -99,7 +99,11 @@ public class Ball implements IDrawable {
 	}
 	
 	public static Ball defaultBall() {
-		return new Ball(40f, 10, 5f, 7.5f);
+		return new Ball(40f, 10f, 5f, 7.5f);
+	}
+	
+	public static Ball demoBall() {
+		return new Ball(40f, 2f, 2f, 3f);
 	}
 	
 	public static Ball poolBall() {

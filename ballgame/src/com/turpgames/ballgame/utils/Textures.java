@@ -7,6 +7,7 @@ public class Textures
 {
     public static final ITexture ball_blue = Game.getResourceManager().getTexture("ball_blue");
     public static final ITexture bg = Game.getResourceManager().getTexture("bg");
-    public static final ITexture tap_bottom = Game.getResourceManager().getTexture("tap_bottom");
-    public static final ITexture tap_right = Game.getResourceManager().getTexture("tap_right");
+    public static final ITexture tap = Game.getResourceManager().getTexture("tap");
+    public static final ITexture bump = Game.getResourceManager().getTexture("bump");
+    public static final ITexture swipe = Game.getResourceManager().getTexture("swipe");
 }
