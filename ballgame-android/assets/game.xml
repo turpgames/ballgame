@@ -126,6 +126,18 @@
             value="itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&amp;id=???" />
 
         <param
+            key="doubleup-play-store-address"
+            value="market://details?id=com.turpgames.doubleup" />
+
+        <param
+            key="doubleup-app-store-address-ios7"
+            value="itms-apps://itunes.apple.com/app/id850225350" />
+
+        <param
+            key="doubleup-app-store-address-old"
+            value="itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&amp;id=850225350" />
+
+        <param
             key="twitter-address"
             value="http://www.twitter.com/turpgames" />
 
@@ -251,22 +263,6 @@
             <texture
                 id="tap_bottom"
                 path="img/tap_bottom.png" />
-
-            <texture
-                id="icon"
-                height="320"
-                region-of="main"
-                width="320"
-                x="2"
-                y="114" />
-
-            <texture
-                id="logo"
-                height="110"
-                region-of="main"
-                width="500"
-                x="2"
-                y="2" />
         </textures>
 
         <sounds>
@@ -274,66 +270,6 @@
             <sound
                 id="hit"
                 path="audio/hit.mp3" />
-
-            <sound
-                id="gameover"
-                path="audio/gameover.mp3" />
-
-            <sound
-                id="1"
-                path="audio/1.mp3" />
-
-            <sound
-                id="2"
-                path="audio/2.mp3" />
-
-            <sound
-                id="4"
-                path="audio/4.mp3" />
-
-            <sound
-                id="8"
-                path="audio/8.mp3" />
-
-            <sound
-                id="16"
-                path="audio/16.mp3" />
-
-            <sound
-                id="32"
-                path="audio/32.mp3" />
-
-            <sound
-                id="64"
-                path="audio/64.mp3" />
-
-            <sound
-                id="128"
-                path="audio/128.mp3" />
-
-            <sound
-                id="256"
-                path="audio/256.mp3" />
-
-            <sound
-                id="512"
-                path="audio/512.mp3" />
-
-            <sound
-                id="1024"
-                path="audio/1024.mp3" />
-
-            <sound
-                id="2048"
-                path="audio/2048.mp3" />
-
-            <sound
-                id="nomove"
-                path="audio/nomove.mp3" />
-
-            <sound
-                id="noscore"
-                path="audio/noscore.mp3" />
 
             <sound
                 id="gameover"

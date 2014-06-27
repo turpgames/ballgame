@@ -31,7 +31,7 @@ public class ResultView implements IDrawable {
 
 	public ResultView(final IListener listener) {
 		float y = Game.getVirtualHeight() / 2.0F;
-		shareScoreButton = createButton(shareScore, y - 150f, new IButtonListener() {
+		shareScoreButton = createButton(shareScore, y + 90f, new IButtonListener() {
 			public void onButtonTapped() {
 				if (shareScoreButton.getText().equals(shareScore))
 					listener.onShareScore();
@@ -51,7 +51,7 @@ public class ResultView implements IDrawable {
 			}
 		});
 
-		restartButton = createButton("Play Again", y - 75f, new IButtonListener() {
+		restartButton = createButton("Play Again", y - 180f, new IButtonListener() {
 			public void onButtonTapped() {
 				listener.onRestartGame();
 			}
@@ -63,7 +63,7 @@ public class ResultView implements IDrawable {
 			}
 		});
 
-		hiScoresButton = createButton("Hi Scores", y + 75f, new IButtonListener() {
+		hiScoresButton = createButton("Hi Scores", y - 90f, new IButtonListener() {
 			public void onButtonTapped() {
 				ScreenManager.instance.switchTo(R.screens.leadersboard, false);
 			}
@@ -74,7 +74,6 @@ public class ResultView implements IDrawable {
 
 	private static TextButton createButton(String s, float f, IButtonListener ibuttonlistener) {
 		TextButton textbutton = new TextButton(Color.white(), R.colors.yellow);
-		textbutton.setFontScale(0.75f);
 		textbutton.setListener(ibuttonlistener);
 		textbutton.setText(s);
 		textbutton.deactivate();
@@ -94,7 +93,7 @@ public class ResultView implements IDrawable {
 		aboutButton.activate();
 		hiScoresButton.activate();
 		hideShareScoreButton = false;
-		if (TurpClient.getPlayer().getAuthProvider() == Player.AuthAnonymous)
+		if (!TurpClient.isRegistered() || TurpClient.getPlayer().getAuthProvider() == Player.AuthAnonymous)
 			shareScoreButton.setText(loginWithFacebook);
 		else
 			shareScoreButton.setText(shareScore);

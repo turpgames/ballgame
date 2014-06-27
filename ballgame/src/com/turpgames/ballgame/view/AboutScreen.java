@@ -19,6 +19,7 @@ public class AboutScreen extends Screen {
 	private TextButton storeButton;
 	private TextButton twitterButton;
 	private TextButton webSiteButton;
+	private TextButton doubleupButton;
 
 	public void init() {
 		super.init();
@@ -27,37 +28,44 @@ public class AboutScreen extends Screen {
 		initTwitterButton();
 		initWebSiteButton();
 		initStoreButton();
-		registerDrawable(new BallGameLogo(), 100);
+		initDoubleUpButton();
+
+		registerDrawable(new BallGameLogo(), Game.LAYER_GAME);
 		registerDrawable(Toolbar.getInstance(), Game.LAYER_INFO);
 	}
 
 	private void initFacebookButton() {
-		facebookButton = createButton("turpgames@facebook", Game.getParam("facebook-address"), StatActions.ClickedFacebookInAbout, 500F);
-		registerDrawable(facebookButton, 100);
+		facebookButton = createButton("turpgames@facebook", Game.getParam("facebook-address"), StatActions.ClickedFacebookInAbout, 525F);
+		registerDrawable(facebookButton, Game.LAYER_GAME);
 	}
 
 	private void initTwitterButton() {
-		twitterButton = createButton("turpgames@twitter", Game.getParam("twitter-address"), StatActions.ClickedTwitterInAbout, 400F);
-		registerDrawable(twitterButton, 100);
+		twitterButton = createButton("turpgames@twitter", Game.getParam("twitter-address"), StatActions.ClickedTwitterInAbout, 425F);
+		registerDrawable(twitterButton, Game.LAYER_GAME);
 	}
 
 	private void initWebSiteButton() {
-		webSiteButton = createButton("www.turpgames.com", Game.getParam("turp-address"), StatActions.ClickedWebSiteInAbout, 300F);
-		registerDrawable(webSiteButton, 100);
+		webSiteButton = createButton("www.turpgames.com", Game.getParam("turp-address"), StatActions.ClickedWebSiteInAbout, 325F);
+		registerDrawable(webSiteButton, Game.LAYER_GAME);
 	}
 
 	private void initStoreButton() {
-		storeButton = createButton("Did you like Ball Game?", getStoreUrl(), StatActions.ClickedDidYouLikeInAbout, 200F);
-		registerDrawable(storeButton, 100);
+		storeButton = createButton("Did you like Ball Game?", getStoreUrl(), StatActions.ClickedDidYouLikeInAbout, 225F);
+		registerDrawable(storeButton, Game.LAYER_GAME);
+	}
+
+	private void initDoubleUpButton() {
+		doubleupButton = createButton("Play Double Up - 2048", getDoubleUpStoreUrl(), StatActions.ClickedDoubleUpInAbout, 125F);
+		registerDrawable(doubleupButton, Game.LAYER_GAME);
 	}
 
 	private void initVersionText() {
 		Text text = new Text();
-		text.setText((new StringBuilder("v")).append(Game.getVersion()).toString());
+		text.setText("v" + Game.getVersion());
 		text.setFontScale(0.66F);
 		text.setAlignment(0, 2);
 		text.setPadY(125F);
-		registerDrawable(text, 100);
+		registerDrawable(text, Game.LAYER_GAME);
 	}
 
 	private static TextButton createButton(String text, final String url, final int statAction, float y) {
@@ -86,13 +94,26 @@ public class AboutScreen extends Screen {
 		}
 	}
 
+	private String getDoubleUpStoreUrl() {
+		if (Game.isIOS()) {
+			if (Game.getOSVersion().getMajor() < 7) {
+				return Game.getParam("doubleup-app-store-address-old");
+			} else {
+				return Game.getParam("doubleup-app-store-address-ios7");
+			}
+		} else {
+			return Game.getParam("doubleup-play-store-address");
+		}
+	}
+
 	protected void onAfterActivate() {
 		facebookButton.activate();
 		twitterButton.activate();
 		webSiteButton.activate();
 		storeButton.activate();
+		doubleupButton.activate();
 		TurpClient.sendStat(StatActions.EnterAboutScreen);
-		
+
 		Toolbar.getInstance().enable();
 		Toolbar.getInstance().setListener(new com.turpgames.framework.v0.component.Toolbar.IToolbarListener() {
 			@Override
@@ -112,6 +133,7 @@ public class AboutScreen extends Screen {
 		twitterButton.deactivate();
 		webSiteButton.deactivate();
 		storeButton.deactivate();
+		doubleupButton.deactivate();
 		Toolbar.getInstance().disable();
 		return super.onBeforeDeactivate();
 	}
