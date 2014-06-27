@@ -21,6 +21,7 @@ public class AboutScreen extends Screen {
 	private TextButton webSiteButton;
 	private TextButton doubleupButton;
 
+	@Override
 	public void init() {
 		super.init();
 		initVersionText();
@@ -106,6 +107,7 @@ public class AboutScreen extends Screen {
 		}
 	}
 
+	@Override
 	protected void onAfterActivate() {
 		facebookButton.activate();
 		twitterButton.activate();
@@ -123,11 +125,7 @@ public class AboutScreen extends Screen {
 		});
 	}
 
-	protected boolean onBack() {
-		ScreenManager.instance.switchTo(R.screens.game, true);
-		return true;
-	}
-
+	@Override
 	protected boolean onBeforeDeactivate() {
 		facebookButton.deactivate();
 		twitterButton.deactivate();
@@ -136,5 +134,11 @@ public class AboutScreen extends Screen {
 		doubleupButton.deactivate();
 		Toolbar.getInstance().disable();
 		return super.onBeforeDeactivate();
+	}
+
+	@Override
+	protected boolean onBack() {
+		ScreenManager.instance.switchTo(R.screens.game, true);
+		return true;
 	}
 }

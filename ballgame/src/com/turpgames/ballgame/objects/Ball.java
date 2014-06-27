@@ -63,6 +63,10 @@ public class Ball implements IDrawable {
 		return ball.getWidth();
 	}
 
+	public boolean isFallingDown() {
+		return ball.getVelocity().y < 0;
+	}
+
 	public void hit(float x) {
 		float f = (ball.getLocation().x + radius - x) / radius;
 		float af = Math.abs(f);

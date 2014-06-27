@@ -13,5 +13,6 @@ public final class R {
 		public static final String menu = "menu";
 		public static final String about = "about";
 		public static final String leadersboard = "leadersboard";
+		public static final String help = "help";
 	}
 }

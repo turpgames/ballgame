@@ -1,6 +1,7 @@
 package com.turpgames.ballgame.controller;
 
 import com.turpgames.ballgame.components.BallGameLogo;
+import com.turpgames.ballgame.components.HelpButton;
 import com.turpgames.ballgame.components.HelpView;
 import com.turpgames.ballgame.components.ResultView;
 import com.turpgames.ballgame.objects.Ball;
@@ -14,11 +15,14 @@ import com.turpgames.ballgame.view.IScreenView;
 import com.turpgames.framework.v0.IDrawable;
 import com.turpgames.framework.v0.client.IShareMessageBuilder;
 import com.turpgames.framework.v0.client.TurpClient;
+import com.turpgames.framework.v0.component.IButtonListener;
 import com.turpgames.framework.v0.impl.InputListener;
+import com.turpgames.framework.v0.impl.ScreenManager;
 import com.turpgames.framework.v0.impl.Settings;
 import com.turpgames.framework.v0.impl.Text;
 import com.turpgames.framework.v0.social.ICallback;
 import com.turpgames.framework.v0.util.Game;
+import com.turpgames.framework.v0.util.GameUtils;
 import com.turpgames.framework.v0.util.Rectangle;
 import com.turpgames.framework.v0.util.ShapeDrawer;
 
@@ -33,6 +37,7 @@ public class GameController {
 	private final Text infoText;
 	private final ResultView resultView;
 	private final BallGameLogo logo;
+	private final HelpButton helpButton;
 	private int score;
 
 	private boolean isPlaying = false;
@@ -62,6 +67,14 @@ public class GameController {
 		this.infoText.setAlignment(Text.HAlignCenter, Text.VAlignCenter);
 		this.infoText.setText("Touch To Begin");
 
+		this.helpButton = new HelpButton();
+		helpButton.setListener(new IButtonListener() {
+			@Override
+			public void onButtonTapped() {
+				ScreenManager.instance.switchTo(R.screens.help, false);				
+			}
+		});
+
 		this.resultView = new ResultView(new ResultView.IListener() {
 			@Override
 			public void onShareScore() {
@@ -71,15 +84,14 @@ public class GameController {
 						return "I just made " + score + " hops in Ball Game!";
 					}
 				}, new ICallback() {
-					
+
 					@Override
 					public void onSuccess() {
 						resultView.hideShareScoreButton();
 					}
-					
+
 					@Override
 					public void onFail(Throwable t) {
-						// TODO Auto-generated method stub
 						
 					}
 				});
@@ -101,6 +113,8 @@ public class GameController {
 		view.unregisterDrawable(infoText);
 		view.unregisterDrawable(help);
 		view.unregisterDrawable(overlay);
+		view.unregisterDrawable(helpButton);
+		helpButton.deactivate();
 		TurpClient.sendStat(StatActions.StartPlaying);
 	}
 
@@ -109,6 +123,10 @@ public class GameController {
 		gameOver = true;
 		ball.stopMoving();
 		resultView.activate();
+		
+		helpButton.activate();
+		view.registerDrawable(helpButton, Game.LAYER_INFO);
+		
 		view.unregisterInputListener(listener);
 		view.registerDrawable(resultView, Game.LAYER_INFO);
 		view.registerDrawable(overlay, Game.LAYER_GAME + 1);
@@ -119,6 +137,9 @@ public class GameController {
 	}
 
 	private void restartGame() {
+		helpButton.activate();
+		view.registerDrawable(helpButton, Game.LAYER_INFO);
+		
 		view.registerDrawable(logo, Game.LAYER_INFO);
 		view.registerDrawable(infoText, Game.LAYER_INFO);
 		view.registerDrawable(help, Game.LAYER_INFO);
@@ -148,6 +169,8 @@ public class GameController {
 		if (gameOver) {
 			return false;
 		} else if (!isPlaying) {
+			if (GameUtils.isIn(x, y, helpButton))
+				return false;
 			beginPlaying();
 		} else {
 			score++;

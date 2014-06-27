@@ -18,6 +18,7 @@ public class GameScreen extends Screen implements IScreenView {
 		controller = new GameController(this);
 	}
 
+	@Override
 	protected void onAfterActivate() {
 		controller.activate(isFirstActivate);
 		
@@ -35,7 +36,11 @@ public class GameScreen extends Screen implements IScreenView {
 		TurpClient.sendStat(StatActions.EnterGameScreen);
 	}
 
-
+	@Override
+	protected boolean onBeforeDeactivate() {
+		controller.deactivate();
+		return super.onBeforeDeactivate();
+	}
 
 	@Override
 	protected boolean onBack() {
@@ -44,11 +49,7 @@ public class GameScreen extends Screen implements IScreenView {
 		return true;
 	}
 
-	protected boolean onBeforeDeactivate() {
-		controller.deactivate();
-		return super.onBeforeDeactivate();
-	}
-
+	@Override
 	public void update() {
 		super.update();
 		controller.update();

@@ -175,6 +175,11 @@
             id="about"
             background-texture="bg"
             class="com.turpgames.ballgame.view.AboutScreen" />
+
+        <screen
+            id="help"
+            background-texture="bg"
+            class="com.turpgames.ballgame.view.HelpScreen" />
     </screens>
 
     <forms>
