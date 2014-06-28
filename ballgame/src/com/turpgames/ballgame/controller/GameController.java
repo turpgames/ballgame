@@ -36,7 +36,7 @@ public class GameController {
 	private int score;
 
 	private boolean isPlaying = false;
-	private boolean gameOver = false;
+	private boolean canStart = false;
 	private int hiscore;
 
 	public GameController(IScreenView view) {
@@ -64,7 +64,7 @@ public class GameController {
 		helpButton.setListener(new IButtonListener() {
 			@Override
 			public void onButtonTapped() {
-				ScreenManager.instance.switchTo(R.screens.help, false);				
+				ScreenManager.instance.switchTo(R.screens.help, false);
 			}
 		});
 
@@ -85,7 +85,7 @@ public class GameController {
 
 					@Override
 					public void onFail(Throwable t) {
-						
+
 					}
 				});
 			}
@@ -99,6 +99,7 @@ public class GameController {
 
 	private void beginPlaying() {
 		isPlaying = true;
+		canStart = false;
 		ball.beginMove();
 		score = 0;
 		scoreText.setText(score + "");
@@ -111,29 +112,29 @@ public class GameController {
 
 	private void endGame() {
 		isPlaying = false;
-		gameOver = true;
+		canStart = false;
+		view.unregisterInputListener(listener);
 		ball.stopMoving();
 		resultView.activate();
-		
+
 		helpButton.activate();
 		view.registerDrawable(helpButton, Game.LAYER_INFO);
-		
-		view.unregisterInputListener(listener);
+
 		view.registerDrawable(resultView, Game.LAYER_INFO);
 		Sounds.gameover.play();
-		TurpClient.sendStat(StatActions.GameOver);
-		if (score > 10)
+		if (score > 15)
 			TurpClient.sendScore(score, BallGameMode.defaultMode, null);
 	}
 
 	private void restartGame() {
+		canStart = true;
+		isPlaying = false;
 		helpButton.activate();
 		view.registerDrawable(helpButton, Game.LAYER_INFO);
-		
+
 		view.registerDrawable(logo, Game.LAYER_INFO);
 		view.registerDrawable(infoText, Game.LAYER_INFO);
 		BallGameAds.showAd();
-		gameOver = false;
 		isPlaying = false;
 		ball.reset();
 		score = 0;
@@ -145,22 +146,8 @@ public class GameController {
 		view.registerInputListener(listener);
 	}
 
-	private boolean onTap() {
-		if (gameOver) {
-			restartGame();
-			return true;
-		}
-		return false;
-	}
-
 	private boolean onTouchDown(float x, float y) {
-		if (gameOver) {
-			return false;
-		} else if (!isPlaying) {
-			if (GameUtils.isIn(x, y, helpButton))
-				return false;
-			beginPlaying();
-		} else {
+		if (isPlaying) {
 			score++;
 			scoreText.setText(score + "");
 			if (score > hiscore) {
@@ -170,6 +157,10 @@ public class GameController {
 			}
 			ball.hit(Game.screenToViewportX(x));
 			Sounds.hit.play();
+		} else if (canStart) {
+			if (GameUtils.isIn(x, y, helpButton))
+				return false;
+			beginPlaying();
 		}
 		return true;
 	}
@@ -184,13 +175,11 @@ public class GameController {
 			restartGame();
 		}
 		else {
-			view.registerInputListener(listener);
 			resultView.activate();
 		}
 	}
 
 	public void deactivate() {
-		view.unregisterInputListener(listener);
 		resultView.deactivate();
 	}
 
@@ -205,11 +194,6 @@ public class GameController {
 		@Override
 		public boolean touchDown(float x, float y, int pointer, int button) {
 			return onTouchDown(x, y);
-		}
-
-		@Override
-		public boolean tap(float x, float y, int count, int button) {
-			return onTap();
 		}
 	};
 }

@@ -65,7 +65,7 @@ public class ResultView implements IDrawable {
 
 		hiScoresButton = createButton("Hi Scores", y - 90f, new IButtonListener() {
 			public void onButtonTapped() {
-				ScreenManager.instance.switchTo(R.screens.leadersboard, false);
+				ScreenManager.instance.switchTo(R.screens.hiscores, false);
 			}
 		});
 

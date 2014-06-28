@@ -114,7 +114,6 @@ public class AboutScreen extends Screen {
 		webSiteButton.activate();
 		storeButton.activate();
 		doubleupButton.activate();
-		TurpClient.sendStat(StatActions.EnterAboutScreen);
 
 		Toolbar.getInstance().enable();
 		Toolbar.getInstance().setListener(new com.turpgames.framework.v0.component.Toolbar.IToolbarListener() {

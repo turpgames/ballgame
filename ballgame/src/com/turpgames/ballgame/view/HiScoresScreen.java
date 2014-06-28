@@ -11,7 +11,7 @@ import com.turpgames.framework.v0.impl.Screen;
 import com.turpgames.framework.v0.impl.ScreenManager;
 import com.turpgames.framework.v0.util.Game;
 
-public class LeadersBoardScreen extends Screen {
+public class HiScoresScreen extends Screen {
 	private HiScoreController controller;
 
 	public void init() {

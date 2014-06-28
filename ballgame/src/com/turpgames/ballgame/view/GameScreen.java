@@ -27,13 +27,12 @@ public class GameScreen extends Screen implements IScreenView {
 			TurpClient.init();
 			
 			if (Settings.getInteger("game-installed", 0) == 0) {
-				TurpClient.sendStat(StatActions.GameInstalled);
+				TurpClient.sendStat(StatActions.GameInstalled, Game.getPhysicalScreenSize().toString());
 				Settings.putInteger("game-installed", 1);
 			}
 			
 			TurpClient.sendStat(StatActions.StartGame);
 		}
-		TurpClient.sendStat(StatActions.EnterGameScreen);
 	}
 
 	@Override

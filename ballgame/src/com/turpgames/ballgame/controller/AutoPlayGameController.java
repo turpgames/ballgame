@@ -15,7 +15,6 @@ import com.turpgames.framework.v0.util.Color;
 import com.turpgames.framework.v0.util.Game;
 import com.turpgames.framework.v0.util.ShapeDrawer;
 import com.turpgames.framework.v0.util.Vector;
-import com.turpgames.utils.Util;
 
 public class AutoPlayGameController {
 	private final IScreenView view;
@@ -30,6 +29,7 @@ public class AutoPlayGameController {
 	private boolean isGameOver;
 	private int hopCount;
 	private float[] strategy;
+	private int strategyIndex = 0;
 
 	public AutoPlayGameController(IScreenView view) {
 		this.view = view;
@@ -38,14 +38,14 @@ public class AutoPlayGameController {
 		this.tapImage = new TapImage();
 		this.tips = new GestureTips();
 
-		startButton = createButton("Start Demo", 200, new IButtonListener() {
+		startButton = createButton("Start Demo", 300, new IButtonListener() {
 			@Override
 			public void onButtonTapped() {
 				startPlaying();
 			}
 		});
 
-		backToGameButton = createButton("Back To Game", 100, new IButtonListener() {
+		backToGameButton = createButton("Back To Game", 200, new IButtonListener() {
 			@Override
 			public void onButtonTapped() {
 				ScreenManager.instance.switchTo(R.screens.game, true);
@@ -56,6 +56,7 @@ public class AutoPlayGameController {
 	public void activate() {
 		reset();
 		ball.reset();
+		ball.setY(400f);
 		view.registerDrawable(ball, Game.LAYER_GAME);
 		view.registerDrawable(walls, Game.LAYER_GAME);
 		view.registerDrawable(tapImage, Game.LAYER_GAME);
@@ -73,6 +74,7 @@ public class AutoPlayGameController {
 
 	private void startPlaying() {
 		ball.reset();
+		ball.setY(400f);
 		ball.beginMove();
 		startButton.deactivate();
 		backToGameButton.deactivate();
@@ -86,7 +88,8 @@ public class AutoPlayGameController {
 	private void reset() {
 		ball.stopMoving();
 		hopCount = 0;
-		strategy = Util.Random.getRandomElement(strategies);
+		strategy = strategies[strategyIndex++ % strategies.length];
+		
 		isGameOver = false;
 		startButton.activate();
 		backToGameButton.activate();
@@ -129,40 +132,13 @@ public class AutoPlayGameController {
 			float dx = strategy[hopCount];
 			float cx = v.x + ball.getSize() / 2;
 
-			ball.hit(cx + dx);
+			ball.hit(cx + Game.inchesToViewport(dx * 0.004f));
 
 			tapImage.displayAt(cx, v.y, dx);
 			hopCount += 2;
 			Sounds.hit.play();
 		}
 	}
-
-	// public void update2() {
-	// if (isGameOver)
-	// return;
-	//
-	// if (walls.hasCollision(ball)) {
-	// reset();
-	// ball.update();
-	// Sounds.gameover.play();
-	// isGameOver = true;
-	// return;
-	// }
-	//
-	// Vector v = ball.getLocation();
-	//
-	// if (hopCount < 10 && ball.isFallingDown() && v.y < nextY) {
-	// float dx = Util.Random.randInt(-10, 11);
-	// float cx = v.x + ball.getSize() / 2;
-	//
-	// ball.hit(cx + dx);
-	// nextY = v.y + Util.Random.randInt(-100, 101) + dy;
-	//
-	// tapImage.displayAt(cx, v.y, dx);
-	// hopCount++;
-	// Sounds.hit.play();
-	// }
-	// }
 
 	private final IDrawable overlay = new IDrawable() {
 		@Override
@@ -171,7 +147,7 @@ public class AutoPlayGameController {
 		}
 	};
 
-	private final static float[] fallDown = new float[] {
+	private final static float[] touchDown = new float[] {
 			-5f, 300,
 			10f, 250,
 			5f, 225,
@@ -215,5 +191,5 @@ public class AutoPlayGameController {
 			-30f, 200
 	};
 
-	private final static float[][] strategies = new float[][] { fallDown, touchUp, touchLeft, touchRight };
+	private final static float[][] strategies = new float[][] { touchDown, touchUp, touchLeft, touchRight };
 }

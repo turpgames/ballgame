@@ -6,7 +6,7 @@ import com.turpgames.framework.v0.util.Debug;
 import com.turpgames.framework.v0.util.Game;
 
 public class BallGameAds {
-	private final static long interval = 2 * 60 * 1000;
+	private final static long interval = 90 * 1000;
 	private static long lastShown;
 	
 	public static void showAd() {

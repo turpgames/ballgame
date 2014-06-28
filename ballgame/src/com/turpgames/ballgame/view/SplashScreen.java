@@ -8,6 +8,7 @@ import com.turpgames.framework.v0.client.ConnectionManager;
 import com.turpgames.framework.v0.impl.Screen;
 import com.turpgames.framework.v0.impl.ScreenManager;
 import com.turpgames.framework.v0.util.Color;
+import com.turpgames.framework.v0.util.Debug;
 import com.turpgames.framework.v0.util.Game;
 import com.turpgames.framework.v0.util.ShapeDrawer;
 
@@ -29,6 +30,8 @@ public class SplashScreen extends Screen {
 		registerDrawable(new TurpLogo(), 0);
 		progressColor = new Color(com.turpgames.ballgame.utils.R.colors.yellow);
 		resourceManager = Game.getResourceManager();
+
+		Debug.println(Game.getPhysicalScreenSize());
 	}
 
 	@Override

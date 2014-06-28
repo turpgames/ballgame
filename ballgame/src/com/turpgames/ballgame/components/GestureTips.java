@@ -21,14 +21,15 @@ public class GestureTips implements IDrawable {
 		float w = Game.getVirtualWidth();
 		float h = Game.getVirtualHeight();
 		float s = tapObj.getWidth();
-
-		tapObj.getLocation().set((w - s) / 2, h - (s + 50f));
-		bumpObj.getLocation().set(30f, h - 2 * (s + 75f));
-		swipeObj.getLocation().set(w - s - 30f, h - 2 * (s + 75f));
+		float y = h - (s + 100f);
 		
-		tapObj.setText("Just Tap");
-		bumpObj.setText("No Bump");
-		swipeObj.setText("No Swipe");
+		tapObj.getLocation().set(w - s - 30f, y);
+		bumpObj.getLocation().set(30f, y);
+		swipeObj.getLocation().set((w - s) / 2, y);
+
+		tapObj.setText("Just Tap!");
+		bumpObj.setText("No Bump,");
+		swipeObj.setText("No Swipe,");
 	}
 
 	@Override
@@ -46,12 +47,12 @@ public class GestureTips implements IDrawable {
 			this.texture = texture;
 			setWidth(128f);
 			setHeight(128f);
-			
+
 			this.text = new Text();
 			this.text.setFontScale(0.66f);
 			this.text.setWidth(getWidth());
 		}
-		
+
 		public void setText(String text) {
 			this.text.setText(text);
 			float x = getLocation().x;

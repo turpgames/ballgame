@@ -67,13 +67,22 @@ public class Ball implements IDrawable {
 		return ball.getVelocity().y < 0;
 	}
 
+	public void setY(float y) {
+		ball.getLocation().y = y;
+	}
+
 	public void hit(float x) {
-		float f = (ball.getLocation().x + radius - x) / radius;
-		float af = Math.abs(f);
-		if (af >= 0.5f)
-			f = f > 0 ? 0.5f : -0.5f;
-		ball.getVelocity().set(f * hitX, hitY);
-		rollingEffect.setAngularVelocity(f * af * -1000f);
+		float dxPixels = ball.getLocation().x + radius - x;
+		float dxInches = Game.viewportToInches(dxPixels);
+		float adxPixels = Math.abs(dxPixels);
+
+		if (Math.abs(dxInches) > 0.157f) {
+			dxInches = dxInches < 0 ? -0.157f : 0.157f; // 0.157' = 0.4cm which is radius on iphone 5s
+			adxPixels = radius;
+		}
+
+		ball.getVelocity().set(dxInches * hitX, hitY);
+		rollingEffect.setAngularVelocity(dxInches * adxPixels * -300f);
 	}
 
 	public void beginMove() {
@@ -97,24 +106,12 @@ public class Ball implements IDrawable {
 			TextureDrawer.draw(Textures.ball_blue, this);
 		}
 	}
-	
+
 	public static Ball defaultBall() {
-		return new Ball(40f, 10f, 5f, 7.5f);
+		return new Ball(40f, 10f, 40f, 7.5f);
 	}
-	
+
 	public static Ball demoBall() {
-		return new Ball(40f, 2f, 2f, 3f);
-	}
-	
-	public static Ball poolBall() {
-		return new Ball(15f, 20, 10f, 7.5f);
-	}
-	
-	public static Ball seaBall() {
-		return new Ball(80f, 5, 5f, 7.5f);
-	}
-	
-	public static Ball pingPongBall() {
-		return new Ball(10f, 10, 5f, 7.5f);
+		return new Ball(40f, 2f, 16f, 3f);
 	}
 }

@@ -1,10 +1,8 @@
 package com.turpgames.ballgame.components.hiscore;
 
 import com.turpgames.ballgame.components.BallGameLogo;
-import com.turpgames.ballgame.utils.BallGameMode;
 import com.turpgames.framework.v0.IView;
 import com.turpgames.framework.v0.client.IServiceCallback;
-import com.turpgames.framework.v0.client.TurpClient;
 import com.turpgames.framework.v0.impl.TouchSlidingViewSwitcher;
 import com.turpgames.framework.v0.util.Debug;
 import com.turpgames.framework.v0.util.Game;
@@ -28,7 +26,7 @@ public class HiScoreController implements IView {
 		for (HiScoreInfo info : hiScoreInfos)
 			viewSwitcher.addView(info.view);
 
-		viewSwitcher.setArea(0, 0, Game.getVirtualWidth(), Game.getVirtualHeight());
+		viewSwitcher.setArea(0, 0, Game.getVirtualWidth(), Game.getVirtualHeight() - 200f);
 		
 		logo = new BallGameLogo();
 	}
@@ -58,7 +56,7 @@ public class HiScoreController implements IView {
 
 	private void loadScores() {
 		for (final HiScoreInfo info : hiScoreInfos) {
-			TurpClient.getHiScores(info.days, GetHiScoresRequest.General, BallGameMode.defaultMode, true, 0, 10, new IServiceCallback<GetHiScoresResponse>() {
+			HiScoreManager.getHiScores(info.days, new IServiceCallback<GetHiScoresResponse>() {
 				@Override
 				public void onSuccess(GetHiScoresResponse response) {
 					info.view.bindData(response);

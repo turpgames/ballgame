@@ -11,14 +11,14 @@
 
         <param
             key="server"
-            value="test" />
-
-        <param
-            key="enable-ads"
-            value="true" />
+            value="prod" />
 
         <param
             key="enable-analytics"
+            value="true" />
+
+        <param
+            key="enable-ads"
             value="true" />
 
         <param
@@ -79,7 +79,7 @@
 
         <param
             key="fb-share-imgurl"
-            value="http://www.turpgames.com/img/ballgame.png" />
+            value="http://www.turpgames.com/res/img/ballgame_fb.png" />
 
         <param
             key="fb-share-appinfo"
@@ -87,7 +87,7 @@
 
         <param
             key="prod-server"
-            value="http://ballgame.turpgam.es/" />
+            value="http://prod.turpgam.es/" />
 
         <param
             key="test-server"
@@ -96,18 +96,6 @@
         <param
             key="local-server"
             value="http://192.168.2.4:8080/turp-server/" />
-
-        <param
-            key="send-score-params"
-            value="?a=h&amp;p=%d&amp;m=%d&amp;s=%d&amp;n=%d" />
-
-        <param
-            key="get-leadersboard-params"
-            value="?a=l&amp;p=%d&amp;m=%d&amp;d=%d&amp;w=%d" />
-
-        <param
-            key="register-player-params"
-            value="?a=r&amp;f=%s&amp;e=%s&amp;u=%s" />
 
         <param
             key="turp-address"
@@ -119,11 +107,11 @@
 
         <param
             key="app-store-address-ios7"
-            value="itms-apps://itunes.apple.com/app/id????" />
+            value="itms-apps://itunes.apple.com/app/id894320233" />
 
         <param
             key="app-store-address-old"
-            value="itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&amp;id=???" />
+            value="itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&amp;id=894320233" />
 
         <param
             key="doubleup-play-store-address"
@@ -157,19 +145,14 @@
             class="com.turpgames.ballgame.view.SplashScreen" />
 
         <screen
-            id="menu"
-            background-texture="bg"
-            class="com.turpgames.ballgame.view.MenuScreen" />
-
-        <screen
             id="game"
             background-texture="bg"
             class="com.turpgames.ballgame.view.GameScreen" />
 
         <screen
-            id="leadersboard"
+            id="hiscores"
             background-texture="bg"
-            class="com.turpgames.ballgame.view.LeadersBoardScreen" />
+            class="com.turpgames.ballgame.view.HiScoresScreen" />
 
         <screen
             id="about"
