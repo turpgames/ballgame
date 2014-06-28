@@ -26,8 +26,9 @@ class HiScoreRow implements IDrawable {
 
 		this.playerName = createText(player.getName());
 		this.score = createText(score.getScore() + "");
-
-		if (TurpClient.getPlayer().getId() == player.getId()) {
+		
+		if (TurpClient.getPlayer() != null &&
+				TurpClient.getPlayer().getId() == player.getId()) {
 			this.rank.getColor().set(R.colors.yellow);
 			this.playerName.getColor().set(R.colors.yellow);
 			this.score.getColor().set(R.colors.yellow);
