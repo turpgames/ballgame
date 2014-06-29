@@ -10,6 +10,7 @@ import com.turpgames.ballgame.view.IScreenView;
 import com.turpgames.framework.v0.IDrawable;
 import com.turpgames.framework.v0.component.IButtonListener;
 import com.turpgames.framework.v0.component.TextButton;
+import com.turpgames.framework.v0.impl.InputListener;
 import com.turpgames.framework.v0.impl.ScreenManager;
 import com.turpgames.framework.v0.util.Color;
 import com.turpgames.framework.v0.util.Game;
@@ -83,13 +84,14 @@ public class AutoPlayGameController {
 		view.unregisterDrawable(backToGameButton);
 		view.unregisterDrawable(overlay);
 		isGameOver = false;
+		view.registerInputListener(listener);
 	}
 
 	private void reset() {
 		ball.stopMoving();
 		hopCount = 0;
 		strategy = strategies[strategyIndex++ % strategies.length];
-		
+		tapImage.setAlpha(0f);
 		isGameOver = false;
 		startButton.activate();
 		backToGameButton.activate();
@@ -97,6 +99,16 @@ public class AutoPlayGameController {
 		view.registerDrawable(startButton, Game.LAYER_INFO);
 		view.registerDrawable(backToGameButton, Game.LAYER_INFO);
 		view.registerDrawable(overlay, Game.LAYER_GAME + 1);
+		view.unregisterInputListener(listener);
+	}
+
+	private boolean onTouchDown() {
+		if (isGameOver)
+			return false;
+		reset();
+		ball.reset();
+		ball.setY(400f);
+		return true;
 	}
 
 	private static TextButton createButton(String text, float y, IButtonListener ibuttonlistener) {
@@ -139,6 +151,13 @@ public class AutoPlayGameController {
 			Sounds.hit.play();
 		}
 	}
+
+	private final InputListener listener = new InputListener() {
+		@Override
+		public boolean touchDown(float x, float y, int pointer, int button) {
+			return onTouchDown();
+		}
+	};
 
 	private final IDrawable overlay = new IDrawable() {
 		@Override

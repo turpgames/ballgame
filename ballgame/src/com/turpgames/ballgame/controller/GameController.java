@@ -176,11 +176,13 @@ public class GameController {
 		}
 		else {
 			resultView.activate();
+			helpButton.activate();
 		}
 	}
 
 	public void deactivate() {
 		resultView.deactivate();
+		helpButton.deactivate();
 	}
 
 	public void update() {

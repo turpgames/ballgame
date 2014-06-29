@@ -12,6 +12,7 @@ import com.turpgames.framework.v0.util.Vector;
 
 public class Ball implements IDrawable {
 	private final static float physicsFactor = 100f;
+	private final static float maxdx = 0.157f; // 4mm
 
 	private final BallObject ball;
 
@@ -70,14 +71,14 @@ public class Ball implements IDrawable {
 	public void setY(float y) {
 		ball.getLocation().y = y;
 	}
-
+	
 	public void hit(float x) {
 		float dxPixels = ball.getLocation().x + radius - x;
 		float dxInches = Game.viewportToInches(dxPixels);
 		float adxPixels = Math.abs(dxPixels);
 
-		if (Math.abs(dxInches) > 0.157f) {
-			dxInches = dxInches < 0 ? -0.157f : 0.157f; // 0.157' = 0.4cm which is radius on iphone 5s
+		if (Math.abs(dxInches) > maxdx) {
+			dxInches = dxInches < 0 ? -maxdx : maxdx;
 			adxPixels = radius;
 		}
 
