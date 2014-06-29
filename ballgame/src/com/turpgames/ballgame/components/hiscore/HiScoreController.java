@@ -58,7 +58,7 @@ public class HiScoreController implements IView {
 	private void loadScores() {
 		hiscoresToLoad = hiScoreInfos.length;
 
-		Game.blockUI("Loding Hi Scores...");
+		Game.blockUI("Loading Hi Scores...");
 		
 		for (final HiScoreInfo info : hiScoreInfos) {
 			HiScoreManager.getHiScores(info.days, new IServiceCallback<GetHiScoresResponse>() {
