@@ -10,12 +10,12 @@ import com.turpgames.framework.v0.util.TextureDrawer;
 
 public class GestureTips implements IDrawable {
 	private final GestureTipObj tapObj;
-	private final GestureTipObj bumpObj;
+	private final GestureTipObj tiltObj;
 	private final GestureTipObj swipeObj;
 
 	public GestureTips() {
 		tapObj = new GestureTipObj(Textures.tap);
-		bumpObj = new GestureTipObj(Textures.bump);
+		tiltObj = new GestureTipObj(Textures.tilt);
 		swipeObj = new GestureTipObj(Textures.swipe);
 
 		float w = Game.getVirtualWidth();
@@ -24,18 +24,22 @@ public class GestureTips implements IDrawable {
 		float y = h - (s + 100f);
 		
 		tapObj.getLocation().set(w - s - 30f, y);
-		bumpObj.getLocation().set(30f, y);
+		tiltObj.getLocation().set(30f, y);
 		swipeObj.getLocation().set((w - s) / 2, y);
 
 		tapObj.setText("Just Tap!");
-		bumpObj.setText("No Bump,");
+		tiltObj.setText("No Tilt,");
 		swipeObj.setText("No Swipe,");
+
+		tapObj.shiftText(10f);
+		tiltObj.shiftText(30f);
+		swipeObj.shiftText(10f);
 	}
 
 	@Override
 	public void draw() {
 		tapObj.draw();
-		bumpObj.draw();
+		tiltObj.draw();
 		swipeObj.draw();
 	}
 
@@ -58,6 +62,10 @@ public class GestureTips implements IDrawable {
 			float x = getLocation().x;
 			float w = this.text.getWidth();
 			this.text.setLocation(x + (getWidth() - w) / 2f, getLocation().y - 30f);
+		}
+		
+		public void shiftText(float dx) {
+			this.text.setLocation(this.text.getX() + dx, this.text.getY());
 		}
 
 		@Override

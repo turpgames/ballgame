@@ -71,6 +71,8 @@ public class AutoPlayGameController {
 		view.unregisterDrawable(startButton);
 		view.unregisterDrawable(backToGameButton);
 		view.unregisterDrawable(overlay);
+		backToGameButton.deactivate();
+		startButton.deactivate();
 	}
 
 	private void startPlaying() {

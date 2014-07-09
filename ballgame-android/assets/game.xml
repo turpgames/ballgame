@@ -7,11 +7,11 @@
 
         <param
             key="debug"
-            value="true" />
+            value="false" />
 
         <param
             key="server"
-            value="test" />
+            value="prod" />
 
         <param
             key="enable-analytics"
@@ -126,6 +126,18 @@
             value="itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&amp;id=850225350" />
 
         <param
+            key="ichigu-play-store-address"
+            value="market://details?id=com.turpgames.ichigu" />
+
+        <param
+            key="ichigu-app-store-address-ios7"
+            value="itms-apps://itunes.apple.com/app/id737312134" />
+
+        <param
+            key="ichigu-app-store-address-old"
+            value="itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&amp;id=737312134" />
+
+        <param
             key="twitter-address"
             value="http://www.twitter.com/turpgames" />
 
@@ -134,8 +146,12 @@
             value="http://www.facebook.com/turpgames" />
 
         <param
-            key="admob-interstitial-ad-unit-id"
+            key="admob-interstitial-ad-unit-id-android"
             value="ca-app-pub-9430411208134016/2056747076" />
+
+        <param
+            key="admob-interstitial-ad-unit-id-ios"
+            value="ca-app-pub-9430411208134016/5967825479" />
     </params>
 
     <screens>
@@ -249,8 +265,8 @@
                 path="img/tap.png" />
 
             <texture
-                id="bump"
-                path="img/bump.png" />
+                id="tilt"
+                path="img/tilt.png" />
 
             <texture
                 id="swipe"
@@ -259,6 +275,26 @@
             <texture
                 id="help"
                 path="img/help.png" />
+
+            <texture
+                id="ab_ballgame"
+                path="img/about/ballgame.png" />
+
+            <texture
+                id="ab_doubleup"
+                path="img/about/doubleup.png" />
+
+            <texture
+                id="ab_facebook"
+                path="img/about/facebook.png" />
+
+            <texture
+                id="ab_ichigu"
+                path="img/about/ichigu.png" />
+
+            <texture
+                id="ab_twitter"
+                path="img/about/twitter.png" />
         </textures>
 
         <sounds>
