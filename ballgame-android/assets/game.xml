@@ -7,15 +7,15 @@
 
         <param
             key="debug"
-            value="false" />
+            value="true" />
 
         <param
             key="server"
-            value="prod" />
+            value="test" />
 
         <param
             key="enable-analytics"
-            value="true" />
+            value="false" />
 
         <param
             key="enable-ads"
@@ -66,6 +66,17 @@
             value="true" />
 
         <param
+            key="fb-app-id"
+            value="130845117109974" />
+
+        <param
+            key="fb-app-namespace"
+            value="comturpgamesballgame" />
+
+        <param
+            key="fb-permission"
+            value="readonly" />
+                <param
             key="fb-share-title"
             value="Ball Game" />
 
