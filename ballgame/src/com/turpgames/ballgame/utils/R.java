@@ -9,6 +9,7 @@ public final class R {
 	}
 
 	public static final class screens {
+		public static final String auth = "auth";
 		public static final String game = "game";
 		public static final String about = "about";
 		public static final String hiscores = "hiscores";

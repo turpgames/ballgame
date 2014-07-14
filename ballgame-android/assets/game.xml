@@ -172,6 +172,11 @@
             class="com.turpgames.ballgame.view.SplashScreen" />
 
         <screen
+            id="auth"
+            background-texture="bg"
+            class="com.turpgames.ballgame.view.AuthScreen" />
+
+        <screen
             id="game"
             background-texture="bg"
             class="com.turpgames.ballgame.view.GameScreen" />
