@@ -1,7 +1,9 @@
 package com.turpgames.ballgame.components.hiscore;
 
 import com.turpgames.ballgame.components.BallGameLogo;
+import com.turpgames.ballgame.utils.BallGameMode;
 import com.turpgames.framework.v0.IView;
+import com.turpgames.framework.v0.client.HiScoreManager;
 import com.turpgames.framework.v0.client.IServiceCallback;
 import com.turpgames.framework.v0.impl.TouchSlidingViewSwitcher;
 import com.turpgames.framework.v0.util.Debug;
@@ -61,7 +63,7 @@ public class HiScoreController implements IView {
 		Game.blockUI("Loading Hi Scores...");
 		
 		for (final HiScoreInfo info : hiScoreInfos) {
-			HiScoreManager.getHiScores(info.days, new IServiceCallback<GetHiScoresResponse>() {
+			HiScoreManager.getHiScores(info.days, BallGameMode.defaultMode, new IServiceCallback<GetHiScoresResponse>() {
 				@Override
 				public void onSuccess(GetHiScoresResponse response) {
 					info.view.bindData(response);

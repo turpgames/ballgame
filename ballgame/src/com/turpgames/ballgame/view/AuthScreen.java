@@ -1,30 +1,30 @@
 package com.turpgames.ballgame.view;
 
 import com.turpgames.ballgame.components.BallGameLogo;
+import com.turpgames.ballgame.utils.BallGameAuth;
 import com.turpgames.ballgame.utils.R;
 import com.turpgames.ballgame.utils.StatActions;
 import com.turpgames.framework.v0.client.TurpClient;
 import com.turpgames.framework.v0.component.IButtonListener;
 import com.turpgames.framework.v0.component.TextButton;
 import com.turpgames.framework.v0.impl.Screen;
+import com.turpgames.framework.v0.impl.ScreenManager;
 import com.turpgames.framework.v0.impl.Settings;
 import com.turpgames.framework.v0.util.Color;
 import com.turpgames.framework.v0.util.Game;
 
 public class AuthScreen extends Screen {
 
-	private boolean isFirstActivate;
-
 	private TextButton facebookButton;
 	private TextButton anonymousButton;
 	private TextButton offlineButton;
+	
+	private boolean isFirstActivate;
 	
 	@Override
 	public void init() {
 		super.init();
 
-		isFirstActivate = true;
-		
 		facebookButton = initButton("Login With Facebook", 450, new IButtonListener() {
 			@Override
 			public void onButtonTapped() {
@@ -35,34 +35,39 @@ public class AuthScreen extends Screen {
 		anonymousButton = initButton("Play As Guest", 350, new IButtonListener() {
 			@Override
 			public void onButtonTapped() {
-				playAsGuestAnonymous();
+				playAsGuest();
 			}
 		});
 		
 		offlineButton = initButton("Play Offline", 250, new IButtonListener() {
 			@Override
 			public void onButtonTapped() {
-				playOffline();
+				ScreenManager.instance.switchTo(R.screens.game, false);
 			}
 		});
 		
 		registerDrawable(new BallGameLogo(), Game.LAYER_GAME);
+		
+		if (Settings.getInteger("game-installed", 0) == 0) {
+			TurpClient.sendStat(StatActions.GameInstalled, Game.getPhysicalScreenSize().toString());
+			Settings.putInteger("game-installed", 1);
+		}
+		
+		TurpClient.sendStat(StatActions.StartGame);
+		
+		isFirstActivate = true;
+	}
+	
+	private void initAuth() {
+		BallGameAuth.init();
 	}
 	
 	private void loginWithFacebook() {
-		
+		BallGameAuth.doFacebookLogin();
 	}
 	
-	private void playAsGuestAnonymous() {
-		
-	}
-	
-	private void playOffline() {
-		
-	}
-	
-	private void loginGuest() {
-		
+	private void playAsGuest() {
+		BallGameAuth.doGuestLogin();
 	}
 	
 	private TextButton initButton(String text, float y, IButtonListener listener) {
@@ -81,21 +86,8 @@ public class AuthScreen extends Screen {
 	protected void onAfterActivate() {
 		if (isFirstActivate) {
 			isFirstActivate = false;
-
-			if (TurpClient.canLoginWithFacebook())
-				loginWithFacebook();
-			else if (TurpClient.canLoginGuest())
-				loginGuest();
-			
-			if (Settings.getInteger("game-installed", 0) == 0) {
-				TurpClient.sendStat(StatActions.GameInstalled, Game.getPhysicalScreenSize().toString());
-				Settings.putInteger("game-installed", 1);
-			}
-			
-			TurpClient.sendStat(StatActions.StartGame);
+			initAuth();
 		}
-		
-		
 		facebookButton.activate();
 		anonymousButton.activate();
 		offlineButton.activate();

@@ -5,7 +5,6 @@ import com.turpgames.ballgame.utils.StatActions;
 import com.turpgames.framework.v0.client.TurpClient;
 import com.turpgames.framework.v0.impl.Screen;
 import com.turpgames.framework.v0.impl.Settings;
-import com.turpgames.framework.v0.social.ICallback;
 import com.turpgames.framework.v0.util.Game;
 
 public class GameScreen extends Screen implements IScreenView {
@@ -25,8 +24,7 @@ public class GameScreen extends Screen implements IScreenView {
 		
 		if (isFirstActivate) {
 			isFirstActivate = false;
-			TurpClient.init(ICallback.NULL);
-			
+
 			if (Settings.getInteger("game-installed", 0) == 0) {
 				TurpClient.sendStat(StatActions.GameInstalled, Game.getPhysicalScreenSize().toString());
 				Settings.putInteger("game-installed", 1);
