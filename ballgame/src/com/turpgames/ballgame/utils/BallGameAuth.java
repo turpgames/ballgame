@@ -22,22 +22,10 @@ public class BallGameAuth {
 		}
 	};
 
-	private final static ICallback logoutCallback = new ICallback() {
-		@Override
-		public void onSuccess() {
-			onLogout();
-		}
-
-		@Override
-		public void onFail(Throwable t) {
-
-		}
-	};
-	
 	private static boolean changeGuestName() {
 		return Settings.getBoolean("change-guest-name", true);
 	}
-	
+
 	private static void changeGuestName(boolean changed) {
 		Settings.putBoolean("change-guest-name", changed);
 	}
@@ -45,11 +33,6 @@ public class BallGameAuth {
 	private static void onLogin() {
 		changeGuestName(false);
 		switchToGameScreen();
-	}
-
-	private static void onLogout() {
-		changeGuestName(true);
-		switchToAuthScreen();
 	}
 
 	private static void switchToGameScreen() {
@@ -61,31 +44,9 @@ public class BallGameAuth {
 		});
 	}
 
-	private static void switchToAuthScreen() {
-		Game.enqueueRunnable(new Runnable() {
-			@Override
-			public void run() {
-				ScreenManager.instance.switchTo(R.screens.auth, false);
-			}
-		});
-	}
-
 	public static void init() {
-		if (TurpClient.canLoginWithFacebook()) {
-			doFacebookLogin();
-		}
-		else if (TurpClient.canLoginGuest()) {
+		if (TurpClient.canLoginGuest())
 			doGuestLogin();
-		}
-	}
-
-	public static void doFacebookLogin() {
-		Game.blockUI("Connecting to Facebook...");
-		TurpClient.loginWithFacebook(loginCallback);
-	}
-
-	public static void doFacebookLogout() {
-		TurpClient.logoutFromFacebook(logoutCallback);
 	}
 
 	public static void doGuestLogin() {

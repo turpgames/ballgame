@@ -39,7 +39,7 @@ public class AutoPlayGameController {
 		this.tapImage = new TapImage();
 		this.tips = new GestureTips();
 
-		startButton = createButton("Start Demo", 300, new IButtonListener() {
+		startButton = createButton("Watch Demo", 300, new IButtonListener() {
 			@Override
 			public void onButtonTapped() {
 				startPlaying();

@@ -11,17 +11,14 @@ import com.turpgames.ballgame.utils.R;
 import com.turpgames.ballgame.utils.Sounds;
 import com.turpgames.ballgame.utils.StatActions;
 import com.turpgames.ballgame.view.IScreenView;
-import com.turpgames.framework.v0.client.IShareMessageBuilder;
 import com.turpgames.framework.v0.client.TurpClient;
 import com.turpgames.framework.v0.component.IButtonListener;
 import com.turpgames.framework.v0.impl.InputListener;
 import com.turpgames.framework.v0.impl.ScreenManager;
 import com.turpgames.framework.v0.impl.Settings;
 import com.turpgames.framework.v0.impl.Text;
-import com.turpgames.framework.v0.social.ICallback;
 import com.turpgames.framework.v0.util.Game;
 import com.turpgames.framework.v0.util.GameUtils;
-import com.turpgames.framework.v0.util.TurpToast;
 
 public class GameController {
 	private final IScreenView view;
@@ -70,12 +67,6 @@ public class GameController {
 		});
 
 		this.resultView = new ResultView(new ResultView.IListener() {
-			@Override
-			public void onShareScore() {
-				Game.blockUI("Sharing score...");
-				TurpClient.shareScoreOnFacebook(shareMessageBuilder, shareScoreCallbak);
-			}
-
 			@Override
 			public void onRestartGame() {
 				restartGame();
@@ -182,29 +173,6 @@ public class GameController {
 		@Override
 		public boolean touchDown(float x, float y, int pointer, int button) {
 			return onTouchDown(x, y);
-		}
-	};
-	
-	private final IShareMessageBuilder shareMessageBuilder = new IShareMessageBuilder() {
-		@Override
-		public String buildMessage() {
-			return "I just made " + score + " hops in Ball Game!";
-		}
-	};
-	
-	private final ICallback shareScoreCallbak = new ICallback() {
-
-		@Override
-		public void onSuccess() {
-			Game.unblockUI();
-			TurpToast.showInfo("Score Shared");
-			resultView.hideShareScoreButton();
-		}
-
-		@Override
-		public void onFail(Throwable t) {
-			Game.unblockUI();
-			TurpToast.showError("Share Score Failed!");
 		}
 	};
 }

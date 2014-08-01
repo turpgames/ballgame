@@ -1,6 +1,7 @@
 package com.turpgames.ballgame.view;
 
 import com.turpgames.ballgame.components.BallGameLogo;
+import com.turpgames.ballgame.components.IToolbarListener;
 import com.turpgames.ballgame.components.Toolbar;
 import com.turpgames.ballgame.components.hiscore.HiScoreController;
 import com.turpgames.ballgame.utils.R;
@@ -32,7 +33,7 @@ public class HiScoresScreen extends Screen {
 			controller.activate();
 			
 			Toolbar.getInstance().enable();
-			Toolbar.getInstance().setListener(new com.turpgames.framework.v0.component.Toolbar.IToolbarListener() {
+			Toolbar.getInstance().setListener(new IToolbarListener() {
 				@Override
 				public void onToolbarBack() {
 					onBack();

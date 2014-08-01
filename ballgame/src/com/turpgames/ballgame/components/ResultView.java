@@ -11,40 +11,29 @@ import com.turpgames.framework.v0.util.Game;
 public class ResultView implements IDrawable {
 	public static interface IListener {
 		void onRestartGame();
-
-		void onShareScore();
 	}
 
 	private final TextButton restartButton;
-	private final TextButton shareScoreButton;
 	private final TextButton aboutButton;
 	private final TextButton hiScoresButton;
 	private final BallGameLogo logo;
 
-	private boolean hideShareScoreButton;
-
 	public ResultView(final IListener listener) {
 		float y = Game.getVirtualHeight() / 2.0f;
-		
-		shareScoreButton = createButton("Share Score on Facebook", y + 90f, new IButtonListener() {
-			public void onButtonTapped() {
-				listener.onShareScore();
-			}
-		});
 
-		restartButton = createButton("Play Again", y - 180f, new IButtonListener() {
+		restartButton = createButton("Play Again", y - 120f, new IButtonListener() {
 			public void onButtonTapped() {
 				listener.onRestartGame();
 			}
 		});
 
-		aboutButton = createButton("About", y, new IButtonListener() {
+		aboutButton = createButton("About", y + 60f, new IButtonListener() {
 			public void onButtonTapped() {
 				ScreenManager.instance.switchTo(R.screens.about, false);
 			}
 		});
 
-		hiScoresButton = createButton("Hi Scores", y - 90f, new IButtonListener() {
+		hiScoresButton = createButton("Hi Scores", y - 30, new IButtonListener() {
 			public void onButtonTapped() {
 				ScreenManager.instance.switchTo(R.screens.hiscores, false);
 			}
@@ -66,31 +55,21 @@ public class ResultView implements IDrawable {
 	}
 
 	public void activate() {
-		hideShareScoreButton = false;
 		restartButton.activate();
-		shareScoreButton.activate();
 		aboutButton.activate();
 		hiScoresButton.activate();
 	}
 
 	public void deactivate() {
 		restartButton.deactivate();
-		shareScoreButton.deactivate();
 		aboutButton.deactivate();
 		hiScoresButton.deactivate();
 	}
 
 	public void draw() {
 		restartButton.draw();
-		if (!hideShareScoreButton)
-			shareScoreButton.draw();
 		aboutButton.draw();
 		hiScoresButton.draw();
 		logo.draw();
-	}
-
-	public void hideShareScoreButton() {
-		shareScoreButton.deactivate();
-		hideShareScoreButton = true;
 	}
 }

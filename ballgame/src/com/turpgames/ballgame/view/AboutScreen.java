@@ -1,6 +1,7 @@
 package com.turpgames.ballgame.view;
 
 import com.turpgames.ballgame.components.BallGameLogo;
+import com.turpgames.ballgame.components.IToolbarListener;
 import com.turpgames.ballgame.components.Toolbar;
 import com.turpgames.ballgame.utils.R;
 import com.turpgames.ballgame.utils.StatActions;
@@ -143,7 +144,7 @@ public class AboutScreen extends Screen {
 	@Override
 	protected void onAfterActivate() {
 		Toolbar.getInstance().enable();
-		Toolbar.getInstance().setListener(new com.turpgames.framework.v0.component.Toolbar.IToolbarListener() {
+		Toolbar.getInstance().setListener(new IToolbarListener() {
 			@Override
 			public void onToolbarBack() {
 				onBack();

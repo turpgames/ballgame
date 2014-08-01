@@ -8,19 +8,19 @@
 
         <param
             key="debug"
-            value="true" />
+            value="false" />
 
         <param
             key="server"
-            value="test" />
+            value="prod" />
 
         <param
             key="enable-analytics"
-            value="false" />
+            value="true" />
 
         <param
             key="enable-ads"
-            value="false" />
+            value="true" />
 
         <param
             key="provider"

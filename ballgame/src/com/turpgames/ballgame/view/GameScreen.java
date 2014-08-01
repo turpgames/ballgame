@@ -6,6 +6,7 @@ import com.turpgames.framework.v0.client.TurpClient;
 import com.turpgames.framework.v0.impl.Screen;
 import com.turpgames.framework.v0.impl.Settings;
 import com.turpgames.framework.v0.util.Game;
+import com.turpgames.framework.v0.util.TurpToast;
 
 public class GameScreen extends Screen implements IScreenView {
 
@@ -31,6 +32,9 @@ public class GameScreen extends Screen implements IScreenView {
 			}
 			
 			TurpClient.sendStat(StatActions.StartGame);
+			
+			if (TurpClient.isRegistered())
+				TurpToast.showInfo("Welcome " + TurpClient.getPlayer().getName());
 		}
 	}
 

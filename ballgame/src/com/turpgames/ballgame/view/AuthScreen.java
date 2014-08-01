@@ -15,8 +15,7 @@ import com.turpgames.framework.v0.util.Game;
 
 public class AuthScreen extends Screen {
 
-	private TextButton facebookButton;
-	private TextButton anonymousButton;
+	private TextButton guestButton;
 	private TextButton offlineButton;
 	
 	private boolean isFirstActivate;
@@ -24,22 +23,15 @@ public class AuthScreen extends Screen {
 	@Override
 	public void init() {
 		super.init();
-
-		facebookButton = initButton("Login With Facebook", 450, new IButtonListener() {
-			@Override
-			public void onButtonTapped() {
-				loginWithFacebook();
-			}
-		});
 		
-		anonymousButton = initButton("Play As Guest", 350, new IButtonListener() {
+		guestButton = initButton("Play As Guest", 250, new IButtonListener() {
 			@Override
 			public void onButtonTapped() {
 				playAsGuest();
 			}
 		});
 		
-		offlineButton = initButton("Play Offline", 250, new IButtonListener() {
+		offlineButton = initButton("Play Offline", 400, new IButtonListener() {
 			@Override
 			public void onButtonTapped() {
 				ScreenManager.instance.switchTo(R.screens.game, false);
@@ -60,10 +52,6 @@ public class AuthScreen extends Screen {
 	
 	private void initAuth() {
 		BallGameAuth.init();
-	}
-	
-	private void loginWithFacebook() {
-		BallGameAuth.doFacebookLogin();
 	}
 	
 	private void playAsGuest() {
@@ -88,15 +76,13 @@ public class AuthScreen extends Screen {
 			isFirstActivate = false;
 			initAuth();
 		}
-		facebookButton.activate();
-		anonymousButton.activate();
+		guestButton.activate();
 		offlineButton.activate();
 	}
 	
 	@Override
 	protected boolean onBeforeDeactivate() {
-		facebookButton.deactivate();
-		anonymousButton.deactivate();
+		guestButton.deactivate();
 		offlineButton.deactivate();
 		return super.onBeforeDeactivate();
 	}
